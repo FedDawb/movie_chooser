@@ -19,7 +19,14 @@ class Users:
         self.is_authenticated = False
 
 
-# need to write:
-# a function for checking the password
-# and
+# writing function to check the user password in check_password and feeding it password and hashpw from Users class
+# unsure if this should be a method of the Users class or if it's ok to sit here
+
+def check_password(password, hashpw):
+    if hashpw == password:
+        print("Welcome! Let's find your next film fix.")
+    elif hashpw != password:
+        print("Invalid password. ")
+        return
+
 # for logging in with a self.is_authenticated = True (if statement?)
