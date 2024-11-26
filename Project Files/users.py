@@ -27,11 +27,9 @@ class Users:
 def check_password(self, password, hashpw):
     if hashpw == password:
         print("Welcome! Let's find your next film fix.")
+        self.is_authenticated = True
     elif hashpw != password:
         print("Invalid password. ")
-        self.is_authenticated = True
         return
 
 # for logging in with a self.is_authenticated = True (if statement?)
-
-
