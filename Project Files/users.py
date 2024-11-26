@@ -17,3 +17,9 @@ class Users:
         self.username = username
         self.password = bcrypt.hashpw(password.encode("UTF-8"), bcrypt.gensalt())
         self.is_authenticated = False
+
+
+# need to write:
+# a function for checking the password
+# and
+# for logging in with a self.is_authenticated = True (if statement?)
