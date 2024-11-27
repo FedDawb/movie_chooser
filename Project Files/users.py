@@ -19,7 +19,23 @@ class Users:
         self.is_authenticated = False
 
 
-# need to write:
-# a function for checking the password
-# and
+# writing function to check the user password in check_password and feeding it password and hashpw from Users class
+# unsure if this should be a method of the Users class or if it's ok to sit here
+# my logic is that having it as a static method is better because it performs the task in isolation and won't be able to
+# make changes to the class... maybe?
+
+def check_password(self, password, hashpw):
+    if hashpw == password:
+        print("Welcome! Let's find your next film fix.")
+        self.is_authenticated = True
+    elif hashpw != password:
+        print("Invalid password. ")
+        return
+
+def __str__(self, password, hashpw):
+    print("We take our users privacy very seriously!")
+    return
+
+
 # for logging in with a self.is_authenticated = True (if statement?)
+
