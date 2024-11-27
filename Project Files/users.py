@@ -32,4 +32,10 @@ def check_password(self, password, hashpw):
         print("Invalid password. ")
         return
 
+def __str__(self, password, hashpw):
+    print("We take our users privacy very seriously!")
+    return
+
+
 # for logging in with a self.is_authenticated = True (if statement?)
+
