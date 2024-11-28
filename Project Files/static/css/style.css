@@ -1,4 +1,5 @@
 
+
 html, body {
     margin: 0;
     padding: 0;
@@ -6,11 +7,16 @@ html, body {
     width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: #f8f9fa; 
+    background-color: #f8f9fa;
     font-family: Arial, sans-serif; 
     overflow-x: hidden; 
 }
 
+@media (prefers-color-scheme: dmark) {
+    html, body {
+        background-color: black;
+    }
+}
 
 .navbar {
     width: 100%; 
@@ -176,3 +182,12 @@ main {
     }
 }
 
+.top_banner {
+    background-color: black;
+    background-image:url(/static/img/long_film_1.png);
+    background-repeat: repeat-x;
+    min-height: 113px;
+    vertical-align: left;
+    margin: 0;
+    padding: 0;
+    }
