@@ -215,3 +215,12 @@ h3 {
     text-align:left;
 }
 
+.column_styling {
+    height: 52px;
+}
+
+.column_styling > a {
+    height: 52px;
+    display: block;
+    overflow: hidden;
+}

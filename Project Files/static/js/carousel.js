@@ -4,8 +4,8 @@ $('.responsive').slick({
     dots: true,
     infinite: true,
     speed: 300,
-    slidesToShow: 5,
-    slidesToScroll: 5,
+    slidesToShow: 6,
+    slidesToScroll: 6,
     responsive: [
       {
         breakpoint: 1024,
@@ -38,16 +38,3 @@ $('.responsive').slick({
     ]
   });
 
-/*
-  document.querySelector(`#button`).addEventListener('click', function(e){
-      alert('Hello Bex');
-      console.log(e)
-  });
-
-document.querySelectorAll('.btn-outline-success').forEach(elm => {
-      elm.addEventListener('click', e=>{
-        let title=elm.closest('div').querySelector('p >b').innerHTML;
-        alert(`I clicked on ${title}`)
-      })
-})
-*/
