@@ -2,7 +2,7 @@ from flask import Flask, render_template
 # importing packages:
 # importing flask class from flask package
 # render template for testing
-from films import Film
+from test import Film
 
 
 #  This file will house Flask API code, manage routing and integrate with front-end
