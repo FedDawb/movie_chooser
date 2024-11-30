@@ -1,0 +1,90 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Chooser</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar Section -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-movie-red">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html"> <i class="fas fa-film"></i></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <!-- Dropdown Menu -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            MENU
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="index.html">HOME</a></li>
+                            <li><a class="dropdown-item" href="results.html">YOUR MOVIE</a></li>
+                            <li><a class="dropdown-item" href="aboutUs.html">ABOUT US</a></li>
+                            <li><a class="dropdown-item" href="links.html">STREAMING SITES</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Movie Chooser Title Section -->
+    <div class="container py-5 text-center bg-light">
+        <h1 class="display-3"> Your Choosen Movie</h1>
+    </div>
+
+    
+
+
+     <!-- Selevted movie goes here.....should link here from previous page -->
+     
+
+
+
+     <footer class="bg-dark text-light mt-auto">
+        <div class="container p-4">
+            <div class="row">
+
+
+               <!-- Contact  team Section -->
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="mailto:creators@example.com" class="text-light text-decoration-none">Email the Creators</a></li>
+                    </ul>
+                </div>
+
+                <!-- email input Section -->
+                <div class="col-md-4">
+                    <h5>Stay Updated</h5>
+                    <form>
+                        <div class="mb-3">
+                            <input type="email" class="form-control" placeholder="Enter your email">
+                        </div>
+                        <button type="submit" class="btn btn-secondary">Subscribe</button>
+                    </form>
+                </div>
+
+                <!--Streaming Links for big companies -->
+                <div class="col-md-4">
+                    <h5>Watch Movies On</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="https://www.netflix.com" target="_blank" class="text-light text-decoration-none">Netflix</a></li>
+                        <li><a href="https://www.primevideo.com" target="_blank" class="text-light text-decoration-none">Amazon Prime</a></li>
+                        <li><a href="https://www.disneyplus.com" target="_blank" class="text-light text-decoration-none">Disney+</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
