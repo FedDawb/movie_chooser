@@ -1,3 +1,16 @@
+import json
+import bcrypt
+import mysql.connector
+from mysql.connector import connect, Error
+
+# Database configuration
+DB_CONFIG = {
+    'host': 'localhost',  # Change to your database host
+    'user': 'root',  # Change to your MySQL username
+    'password': 'password',  # Change to your MySQL password
+    'database': 'db_movie_night'  # Change to your database name
+}
+
 def create_connection():
     """Establish a database connection."""
     try:
