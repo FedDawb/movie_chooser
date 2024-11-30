@@ -12,7 +12,8 @@ import bcrypt
 
 
 class Users:
-    def __init__(self, email, username, password):
+    def __init__(self, user_id, email, username, password):
+        self.user_id = user_id
         self.email = email
         self.username = username
         self.password = bcrypt.hashpw(password.encode("UTF-8"), bcrypt.gensalt())
@@ -31,6 +32,7 @@ def check_password(self, password, hashpw):
     elif hashpw != password:
         print("Invalid password. ")
         return
+
 
 def __str__(self, password, hashpw):
     print("We take our users privacy very seriously!")
