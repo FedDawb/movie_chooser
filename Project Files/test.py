@@ -16,7 +16,7 @@ class Film:
                 "id": 343611,
                 "original_title": "Jack Reacher: Never Go Back",
                 "original_language": "en",
-                "title": "Jack Reacher: Never Go Back ever again, never ever again, never ever again you hear?",
+                "title": "Jack Reacher: Never Go Back ",
                 "backdrop_path": "/4ynQYtSEuU5hyipcGkfD6ncwtwz.jpg",
                 "popularity": 26.818468,
                 "vote_count": 201,
