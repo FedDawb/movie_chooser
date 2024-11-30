@@ -1,0 +1,193 @@
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif; 
+    overflow-x: hidden; 
+}
+
+@media (prefers-color-scheme: dmark) {
+    html, body {
+        background-color: black;
+    }
+}
+
+.navbar {
+    width: 100%; 
+    background-color: #9b111e; 
+    color: #fff;
+    padding: 15px 20px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+.navbar .dropdown-menu {
+    text-align: center;
+}
+
+
+h1, h2 {
+    color: #9b111e;
+    text-align: center;
+}
+
+h1.About {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.about_details {
+    font-size: 1.2rem;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+    text-align: center;
+    padding: 20px; 
+}
+
+
+.skill_Section {
+    font-size: 1.2rem;
+    color: #555;
+    margin: 20px auto;
+    max-width: 800px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+
+footer {
+    width: 100%; 
+    background-color: #343a40;
+    color: #f8f9fa;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: auto;
+}
+
+footer h5 {
+    margin-bottom: 1rem;
+}
+
+footer ul {
+    padding: 0;
+    margin: 0 auto;
+    list-style: none;
+}
+
+footer ul li {
+    margin: 5px 0;
+}
+
+footer a {
+    color: #f8f9fa;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #adb5bd;
+}
+
+
+.watch_links {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.watch_links ul {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.watch_links ul li {
+    margin: 5px 10px;
+}
+
+.watch_links a {
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.watch_links a:hover {
+    color: #0056b3;
+}
+
+
+.card {
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #9b111e;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #555;
+}
+
+
+.navbar, footer {
+    position: relative;
+    z-index: 1; 
+    left: 0;
+    right: 0;
+}
+
+
+body {
+    justify-content: flex-start; 
+}
+
+main {
+    width: 100%;
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+
+@media (max-width: 768px) {
+    .navbar-collapse {
+        text-align: center;
+    }
+
+    .skill_Section {
+        font-size: 1rem;
+    }
+
+    footer .row {
+        text-align: center;
+    }
+}
+
+.top_banner {
+    background-color: black;
+    background-image:url(/static/img/long_film_1.png);
+    background-repeat: repeat-x;
+    min-height: 113px;
+    vertical-align: left;
+    margin: 0;
+    padding: 0;
+    }
