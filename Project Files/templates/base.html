@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Movie Chooser{% endblock %}</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -19,6 +22,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <!-- Below is the styling for all pages -->
     <link rel="stylesheet" href="static/css/style.css">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- Below is the favicon image-->
     <link rel="icon" type="image/x-icon" href="static/img/popcorn.png">
@@ -57,7 +64,7 @@
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="login.html">
+                        <a class="nav-link" href="{{ url_for('login') }}">
                             <i class="fa-regular fa-circle-user fa-shake login-icon"></i>
                         </a>
                     </li>
@@ -116,10 +123,11 @@
 
 <!-- Below is the bootstrap for all pages -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="static/js/app.js"></script>
 
 <!-- block page_js allows us to use custom js on other pages -->
 {% block page_js %}
-<script src="static/js/app.js"></script>
+
 {% endblock %}
 
 </body>

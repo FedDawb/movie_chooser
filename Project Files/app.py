@@ -2,7 +2,7 @@ from flask import Flask, render_template
 # importing packages:
 # importing flask class from flask package
 # render template for testing
-from test import Film
+from api_example import Film
 
 
 #  This file will house Flask API code, manage routing and integrate with front-end
@@ -60,6 +60,16 @@ def about_us():
 def chosen_movie():
     context = {}
     return render_template("chosen_movie.html", **context)
+
+@app.route("/login")
+def login():
+    context = {}
+    return render_template("login.html", **context)
+
+@app.route("/results")
+def results():
+    context = {}
+    return render_template("results.html", **context)
 
 
 # telling the script to run if running this file and using the debugger to ensure it runs correctly and if not it will
