@@ -191,3 +191,214 @@ main {
     margin: 0;
     padding: 0;
     }
+
+    .intro-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.intro-video {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* Button Styles */
+.enter-button-container {
+    position: absolute;
+    bottom: 20%;
+    display: none; /* Initially hide contentd */
+    text-align: center;
+}
+
+.enter-button-container button {
+    font-size: 20px;
+    padding: 10px 20px;
+    background-color: #9b111e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.enter-button-container button:hover {
+    background-color: #b71d29;
+}
+
+/* Main Content Styles */
+#mainSite {
+    display: none;
+}
+
+
+
+.watch_links {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.watch_links ul {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.watch_links ul li {
+    margin: 5px 10px;
+}
+
+.watch_links a {
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.watch_links a:hover {
+    color: #0056b3;
+}
+
+
+.card {
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #9b111e;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #555;
+}
+
+
+.navbar, footer {
+    position: relative;
+    z-index: 1;
+    left: 0;
+    right: 0;
+}
+
+/*--login page-->*/
+
+.login-container {
+    background: rgba(255, 255, 255, 0.8); /* White translucent background */
+    backdrop-filter: blur(10px); /*Frosted effect */
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle boxing shadow */
+    max-width: 400px;
+    width: 100%;
+    position: relative;
+    left: 35%;
+    margin: 20px;
+
+}
+
+.login-container h2 {
+    color: #9b111e; /* Match the themecolor */
+    margin-bottom: 20px;
+}
+
+.login-container label {
+    display: block;
+    margin: 10px 0 5px;
+    color: #333;
+    font-weight: bold;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.login-container button {
+    background-color: #9b111e;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-container button:hover {
+    background-color: #b71d29; /* Slightly darker red on hover */
+}
+
+.login-icon {
+    font-size: 1.5rem;
+    color: white;
+    transition: transform 0.3s, color 0.3s;
+}
+
+.login-icon:hover {
+    color: #ffcc00;
+    transform: scale(1.2);
+    animation: shake 0.3s;
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    20%, 60% {
+        transform: translateX(-10px);
+    }
+    40%, 80% {
+        transform: translateX(10px);
+    }
+}
+
+
+
+body {
+    justify-content: flex-start;
+}
+
+main {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+
+@media (max-width: 768px) {
+    .navbar-collapse {
+        text-align: center;
+    }
+
+    .skill_Section {
+        font-size: 1rem;
+    }
+
+    footer .row {
+        text-align: center;
+    }
+}
