@@ -58,7 +58,15 @@ class TMDB:
         return self.call_api(url)
 
     def popular_films(self):
-        url = f"movie/popular?language=en-US&page=1"
+        url = "movie/popular?language=en-US&page=1"
+        return self.call_api(url)
+
+    def upcoming_films(self):
+        url = "movie/upcoming"
+        return self.call_api(url)
+
+    def top_rated(self):
+        url = "movie/top_rated"
         return self.call_api(url)
 
     def call_api(self, url: str) -> dict:

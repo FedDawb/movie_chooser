@@ -32,14 +32,14 @@
         </div>
     </div>
 
-    <!-- Below is the code for the carousel-->
-    <div class="container text-center mt-3">
+    <!-- Below is the code for the "Most Popular" carousel-->
+<div class="container text-center mt-3">
       <div class=""><a class="carousel_title" href=""><h3> Most Popular </h3></a></div>
 
         <div class="responsive">
             {% for movie in popular_movies %}
             <div>
-                <img src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="97" height="145"><br>
+                <img class="image_border" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="97" height="145"><br>
                 <div>
                     <div class="container">
                       <div class="row h-25">
@@ -57,13 +57,14 @@
         </div>
     </div>
 
-    <div class="container text-center mt-4">
-      <div class=""><a class="carousel_title" href=""><h3> Action </h3></a></div>
+    <!-- Below is the code for the "Top Rated" carousel -->
+ <div class="container text-center mt-4">
+      <div class=""><a class="carousel_title" href=""><h3> Top Rated </h3></a></div>
 
         <div class="responsive">
-            {% for movie in movies %}
+            {% for movie in top_rated %}
             <div>
-                <img src="{{ movie.poster_path }}" width="97" height="145"/><br>
+                <img class="image_border" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="97" height="145"><br>
                 <div>
                     <div class="container">
                       <div class="row h-25">
@@ -79,17 +80,18 @@
         </div>
     </div>
 
-    <div class="container text-center mt-4">
-      <div class=""><a class="carousel_title" href=""><h3> Romance </h3></a></div>
+    <!-- Below is the code for the "Upcoming" carousel -->
+<div class="container text-center mt-4">
+      <div class=""><a class="carousel_title" href=""><h3> Upcoming </h3></a></div>
 
         <div class="responsive">
-            {% for movie in movies %}
+            {% for movie in upcoming_movies %}
             <div>
-                <a class="mb-0" href=""><img src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="97" height="145"/></a><br>
+                <img class="image_border" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="97" height="145"/><br>
                 <div>
                     <div class="container">
                       <div class="row h-25">
-                        <div class="col column_styling"><a class="mb-0 film_title" href="">{{ movie.title }}</a></div>
+                        <div class="col column_styling"><a class="mb-0 film_title" href="">{{ movie.title }} </a></div>
                         <div class="w-100"></div>
                         <div class="col {% if movie.vote_average > 4 %} text-success {% elif movie.vote_average < 3 %} text-danger {% else %} text-warning {% endif %}">Rating: {{ movie.vote_average }}</div>
                       </div>
@@ -100,6 +102,8 @@
 
         </div>
     </div>
+
+
 
 {% endblock %}
 

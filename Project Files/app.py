@@ -52,10 +52,14 @@ app = Flask(__name__)
 def home():
     api_key = config("API_KEY")
     api = TMDB(api_key)
-    results = api.popular_films()
+    popular = api.popular_films()
+    upcoming = api.upcoming_films()
+    top_rated = api.top_rated()
 
     context = {
-        "popular_movies": results["results"],
+        "popular_movies": popular["results"],
+        "upcoming_movies" : upcoming["results"],
+        "top_rated" : top_rated["results"]
     }
     return render_template("index_2.html", **context)
 
