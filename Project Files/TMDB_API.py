@@ -57,6 +57,10 @@ class TMDB:
         url = f"movie/{movie_id}/recommendations"
         return self.call_api(url)
 
+    def popular_films(self):
+        url = f"movie/popular?language=en-US&page=1"
+        return self.call_api(url)
+
     def call_api(self, url: str) -> dict:
         """ This is the actual API call wth the api_key, need to import the API key from the protected//secret file
 
@@ -67,3 +71,6 @@ class TMDB:
         }
         result = requests.get(f"{self.base_url}{url}", headers=headers)
         return result.json()
+
+
+

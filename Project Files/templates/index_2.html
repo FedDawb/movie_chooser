@@ -37,9 +37,9 @@
       <div class=""><a class="carousel_title" href=""><h3> Most Popular </h3></a></div>
 
         <div class="responsive">
-            {% for movie in movies %}
+            {% for movie in popular_movies %}
             <div>
-                <img src="{{ movie.poster_path }}" width="97" height="145"/><br>
+                <img src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="97" height="145"><br>
                 <div>
                     <div class="container">
                       <div class="row h-25">

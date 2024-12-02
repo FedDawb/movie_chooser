@@ -39,11 +39,23 @@ app = Flask(__name__)
 #     context = {}
 #     return render_template("base.html", **context)
 
+# @app.route("/")
+# def home():
+#     api_key = config("API_KEY")
+#     # film = Film()
+#     context = {
+#         # "movies": film.fake_search_api(),
+#     }
+#     return render_template("index_2.html", **context)
+
 @app.route("/")
 def home():
-    film = Film()
+    api_key = config("API_KEY")
+    api = TMDB(api_key)
+    results = api.popular_films()
+
     context = {
-        "movies": film.fake_search_api(),
+        "popular_movies": results["results"],
     }
     return render_template("index_2.html", **context)
 
