@@ -3,7 +3,7 @@
 {% block title %}Results{% endblock %}
 
 {% block page_css %}
-    <link rel="stylesheet" href="static/css/results.css">
+    <link rel="stylesheet" href="/static/css/results.css">
 {% endblock %}
 
 {% block content %}
@@ -14,7 +14,7 @@
     </div>
 
     {% if not movie_id and results %}
-    <h2 class="mb-5">Multiple results found, please choose which film you </h2>
+    <h2 class="mb-5">Multiple results found, please choose which film you meant </h2>
     <div class="row container-fluid container_stuff mx-2">
         {% for movie in results %}
 
@@ -22,7 +22,7 @@
             <form method="POST">
                 <input type="hidden" name="movie_id" value="{{ movie.id }}">
                 <img class="image_border" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="150" height="200" onclick="submitForm(this)"><br>
-                <p>{{ movie.title }}</p>
+                <a class="mb-0 film_title" href="{{ url_for('chosen_movie', movie_id=movie.id) }}">{{ movie.title }}</a>
                 <div class="">
                     <p> {{ movie.overview }}</p>
                 </div>
@@ -33,14 +33,15 @@
     </div>
 
     {% else %}
-    <img src="https://image.tmdb.org/t/p/original{{ result.poster_path }}" width="97" height="145"><br>
-    <p>{{ result.title }}</p>
-    <ul>
-    {% for k,v in result.items() %}
-        <li>{{ k }}: {{ v }} </li>
-    {% endfor %}
-    </ul>
-
+    <div class="mx-4">
+    <img class="image_border" src="https://image.tmdb.org/t/p/original{{ result.poster_path }}" width="150" height="200"><br>
+    <div>
+        <p>{{ result.title }}</p>
+        <p> {{ result.overview }}</p>
+        </div>
+    <div>
+</div>
+    </div>
     <div class="row">
     {% for movie in recommendations.results %}
         {% include "result_block.html" %}
