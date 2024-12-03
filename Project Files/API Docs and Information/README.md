@@ -52,3 +52,6 @@ Example response is same as Top Popular Movies
 POST REQUEST - Add Movies to a List 
 link to documentation on this:
 https://developer.themoviedb.org/reference/list-add-movie
+
+GET REQUEST - Movie Age Certifications - only want GB
+https://api.themoviedb.org/3/certification/movie/list?api_key=7411413e79aba1afbb33df28e0532a6f
