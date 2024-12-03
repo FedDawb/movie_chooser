@@ -1,0 +1,9 @@
+<div class="col">
+    <img src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="97" height="145"><br>
+    <p>{{ movie.title }}</p>
+    <ul>
+    {% for k,v in movie.items() %}
+        <li>{{ k }}: {{ v }} </li>
+    {% endfor %}
+    </ul>
+</div>
