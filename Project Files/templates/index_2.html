@@ -39,11 +39,11 @@
         <div class="responsive">
             {% for movie in popular_movies %}
             <div>
-                <img class="image_border" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="97" height="145"><br>
+                <img class="image_border" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="150" height="200"><br>
                 <div>
                     <div class="container">
                       <div class="row h-25">
-                        <div class="col column_styling "><a class="mb-0 film_title" href="">{{ movie.title }}</a></div>
+                        <div class="col column_styling "><a class="mb-0 film_title" href="{{ url_for('chosen_movie', movie_id=movie.id) }}">{{ movie.title }}</a></div>
                         <div class="w-100"></div>
                         <div class="col {% if movie.vote_average > 4 %} text-success {% elif movie.vote_average < 3 %} text-danger {% else %} text-warning {% endif %}">
                             Rating: {{ movie.vote_average }}
@@ -64,11 +64,11 @@
         <div class="responsive">
             {% for movie in top_rated %}
             <div>
-                <img class="image_border" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="97" height="145"><br>
+                <img class="image_border" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="150" height="200"><br>
                 <div>
                     <div class="container">
                       <div class="row h-25">
-                        <div class="col column_styling"><a class="mb-0 film_title" href="">{{ movie.title }}</a></div>
+                        <div class="col column_styling"><a class="mb-0 film_title" href="{{ url_for('chosen_movie', movie_id=movie.id) }}">{{ movie.title }}</a></div>
                         <div class="w-100"></div>
                         <div class="col {% if movie.vote_average > 4 %} text-success {% elif movie.vote_average < 3 %} text-danger {% else %} text-warning {% endif %}">Rating: {{ movie.vote_average }}</div>
                       </div>
@@ -87,11 +87,11 @@
         <div class="responsive">
             {% for movie in upcoming_movies %}
             <div>
-                <img class="image_border" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="97" height="145"/><br>
+                <img class="image_border" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="150" height="200"/><br>
                 <div>
                     <div class="container">
                       <div class="row h-25">
-                        <div class="col column_styling"><a class="mb-0 film_title" href="">{{ movie.title }} </a></div>
+                        <div class="col column_styling"><a class="mb-0 film_title" href="{{ url_for('chosen_movie', movie_id=movie.id) }}">{{ movie.title }} </a></div>
                         <div class="w-100"></div>
                         <div class="col {% if movie.vote_average > 4 %} text-success {% elif movie.vote_average < 3 %} text-danger {% else %} text-warning {% endif %}">Rating: {{ movie.vote_average }}</div>
                       </div>

@@ -1,0 +1,28 @@
+.film_title {
+    text-decoration: none;
+    color:black;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.container_stuff {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center space-evenly;
+}
+
+.image_border{
+    border: solid 1px black;
+}
+
+.column_styling {
+    height: 200px;
+}
+
+.column_styling > a {
+    height: 300px;
+    display: block;
+    overflow: hidden;
+}

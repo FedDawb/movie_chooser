@@ -69,6 +69,22 @@ class TMDB:
         url = "movie/top_rated"
         return self.call_api(url)
 
+    def reviews(self, movie_id):
+        url = f"movie/{movie_id}/reviews"
+        return self.call_api(url)
+
+    def actors(self, movie_id):
+        url = f"movie/{movie_id}/credits"
+        return self.call_api(url)
+
+    def movie_credits(self, person_id):
+        url = f"person/{person_id}/movie_credits"
+        return self.call_api(url)
+
+    def person_details(self, person_id):
+        url = f"person/{person_id}"
+        return self.call_api(url)
+
     def call_api(self, url: str) -> dict:
         """ This is the actual API call wth the api_key, need to import the API key from the protected//secret file
 
