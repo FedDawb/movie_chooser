@@ -2,11 +2,51 @@
 
 {% block title %}Links{% endblock %}
 
+{% block page_css %}
+    <link rel="stylesheet" href="/static/css/chosen_movie.css">
+{% endblock %}
+
 {% block content %}
     <!-- Movie Chooser Title Section -->
     <div class="container py-5 text-center bg-light">
-        <h1 class="display-3"> Your Choosen Movie</h1>
+        <h1 class="display-3">{{ movie.title }}</h1>
+        <p> {{movie.tagline }}</p>
     </div>
+
+
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-2"></div>
+            <div class="col">
+            <h2>Overview</h2>
+            {{ movie.overview }}
+            <div class="mt-4 {% if movie.vote_average > 4 %} text-success {% elif movie.vote_average < 3 %} text-danger {% else %} text-warning {% endif %}">
+                <p>The average rating for this movie is {{ movie.vote_average }}</p>
+            </div>
+        </div>
+
+
+        <div class="col text-end">
+            <img class="image_border" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="400" height="500">
+        </div>
+        <div class="col-2"></div>
+</div>
+
+    <div class="row mt-5">
+        <div class="col"><h2>Reviews</h2></div>
+
+        <div class="row"></div>
+        {% for review in reviews %}
+        <div class="col">
+            <div>{{ reviews.content }}</div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+
 
 
 {% endblock %}

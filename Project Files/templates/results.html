@@ -3,7 +3,7 @@
 {% block title %}Results{% endblock %}
 
 {% block page_css %}
-
+    <link rel="stylesheet" href="static/css/results.css">
 {% endblock %}
 
 {% block content %}
@@ -14,22 +14,22 @@
     </div>
 
     {% if not movie_id and results %}
-    <h2>multiple results found.</h2>
-    <div class="row">
+    <h2 class="mb-5">Multiple results found, please choose which film you </h2>
+    <div class="row container-fluid container_stuff">
         {% for movie in results %}
-        <div class="col">
+        <div class="col"></div>
+        <div class="col ">
             <form method="POST">
                 <input type="hidden" name="movie_id" value="{{ movie.id }}">
-                <img src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="97" height="145" onclick="submitForm(this)"><br>
+                <img class="image_border" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="150" height="200" onclick="submitForm(this)"><br>
                 <p>{{ movie.title }}</p>
-                <ul>
-                {% for k,v in movie.items() %}
-                    <li>{{ k }}: {{ v }} </li>
-                {% endfor %}
-                </ul>
+                <div class="">
+                    <p> {{ movie.overview }}</p>
+                </div>
             </form>
         </div>
         {% endfor %}
+        <div class="col"></div>
     </div>
 
     {% else %}

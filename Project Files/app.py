@@ -3,7 +3,6 @@ from flask import Flask, render_template, request
 # importing packages:
 # importing flask class from flask package
 # render template for testing
-from api_example import Film
 from TMDB_API import TMDB
 
 #  This file will house Flask API code, manage routing and integrate with front-end
@@ -39,15 +38,6 @@ app = Flask(__name__)
 #     context = {}
 #     return render_template("base.html", **context)
 
-# @app.route("/")
-# def home():
-#     api_key = config("API_KEY")
-#     # film = Film()
-#     context = {
-#         # "movies": film.fake_search_api(),
-#     }
-#     return render_template("index_2.html", **context)
-
 @app.route("/")
 def home():
     api_key = config("API_KEY")
@@ -73,9 +63,15 @@ def about_us():
     context = {}
     return render_template("about_us.html", **context)
 
-@app.route("/chosen_movie")
-def chosen_movie():
-    context = {}
+@app.route("/chosen_movie/<int:movie_id>")
+def chosen_movie(movie_id):
+    api_key = config("API_KEY")
+    api = TMDB(api_key)
+    context = {
+        "movie": api.get_movie_details(movie_id),
+        "reviews": api.reviews(movie_id),
+        "actors": api.actors(movie_id)
+    }
     return render_template("chosen_movie.html", **context)
 
 @app.route("/login")
