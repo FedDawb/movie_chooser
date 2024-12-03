@@ -402,3 +402,6 @@ main {
         text-align: center;
     }
 }
+.image_border{
+    border: solid 1px black;
+}
