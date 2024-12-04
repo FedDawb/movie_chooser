@@ -1,7 +1,7 @@
 import bcrypt
+# import re
 
-
-# importing BCrypt library to hash passwords
+# importing BCrypt library to hash passwords and RegEx to validate user emails
 # This file will be used to define our User class and authentication
 
 # defining our Users class:
@@ -24,7 +24,7 @@ class Users:
         self.password = self.hash_password(password)  # bcrypt.hashpw(password.encode("UTF-8"), bcrypt.gensalt())
         self.is_authenticated = False
 
-        # writing a function to hash and salt the users entered password function:
+# writing a function to hash and salt the users entered password function:
     def hash_password(self, password):
         return bcrypt.hashpw(password.encode("UTF-8"), bcrypt.gensalt())
 # check_password method updated because the previous code was trying to match between the hashed what the user entered:
@@ -45,9 +45,3 @@ class Users:
 #     return
 
 
-# for logging in with a self.is_authenticated = True (if statement?)
-
-def login(self, password):
-    if self.check_password(password):
-        return True
-    return False
