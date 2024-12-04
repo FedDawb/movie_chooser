@@ -23,7 +23,7 @@
     line-height: 0;
 
     position: absolute;
-    top: 50%;
+    top: 40%;
 
     display: block;
 
@@ -40,6 +40,7 @@
     border: none;
     outline: none;
     background: transparent;
+}
 }
 .slick-prev:hover,
 .slick-prev:focus,
@@ -208,7 +209,7 @@
 }
 
 h3 {
-    font-family: "Delius", cursive;
+    font-family: "Kanit", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
@@ -223,4 +224,22 @@ h3 {
     height: 52px;
     display: block;
     overflow: hidden;
+}
+
+.carousel_title {
+    text-decoration: none;
+    color: rgba(143, 3, 3, 1);
+}
+
+.film_title {
+    text-decoration: none;
+    color:black;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.rating{
+    color: red;
 }
