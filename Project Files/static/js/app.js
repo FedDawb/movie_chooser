@@ -41,7 +41,7 @@ document.getElementById("subscribeButton").addEventListener("click", function() 
 //Registration page
 
 function handleRegister() {
-//?info for registration?
+//?info for registration code
 const username = document.getElementById('new-username').value;
 const password = document.getElementById('new-password').value;
 const confirmPassword = document.getElementById('confirm-password').value
