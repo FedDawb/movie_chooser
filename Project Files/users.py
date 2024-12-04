@@ -1,4 +1,6 @@
 import bcrypt
+
+
 # importing BCrypt library to hash passwords
 # This file will be used to define our User class and authentication
 
@@ -6,6 +8,8 @@ import bcrypt
 # has the attributes email, username and password which are defined in the object initialise-r
 # using bcrypt library to hash user passwords before they are stored in our db and salts for during storage in db
 # users password is therefore not stored in our db, only the hashed, salt version
+# made an amendment so that the password attribute checks the hashed password (utf-8 version) and not the users password
+# that's input into the password field
 # self.is_authenticated used to flag when a user is logged in
 # using "utf-8" encoder to translate string password into byte representation to leverage BCrypt library
 # "bcrypt.gensalt()" ensures that a unique salt is created per user password
@@ -17,28 +21,33 @@ class Users:
         self.email = email
         self.username = username
         self.age = age
-        self.password = bcrypt.hashpw(password.encode("UTF-8"), bcrypt.gensalt())
+        self.password = self.hash_password(password)  # bcrypt.hashpw(password.encode("UTF-8"), bcrypt.gensalt())
         self.is_authenticated = False
 
+        # writing a function to hash and salt the users entered password function:
+    def hash_password(self, password):
+        return bcrypt.hashpw(password.encode("UTF-8"), bcrypt.gensalt())
+# check_password method updated because the previous code was trying to match between the hashed what the user entered:
 
-# writing function to check the user password in check_password and feeding it password and hashpw from Users class
-# unsure if this should be a method of the Users class or if it's ok to sit here
-# my logic is that having it as a static method is better because it performs the task in isolation and won't be able to
-# make changes to the class... maybe?
+    def check_password(self, password):
+        return bcrypt.checkpw(password.encode("UTF-8"), self.password)
 
-def check_password(self, password, hashpw):
-    if hashpw == password:
-        print("Welcome! Let's find your next film fix.")
-        self.is_authenticated = True
-    elif hashpw != password:
-        print("Invalid password. ")
-        return
+# enabling the user to login once their password has been checked and the password matches between input and hashed:
+    def login(self, password):
+        if self.check_password(password):
+            self.is_authenticated = True  # then the user has been authenticated
+            return True  # the user entered a password that matches the hashed one
+        return False  # the user entered a password that doesn't match the hashed one
 
 
-def __str__(self, password, hashpw):
-    print("We take our users privacy very seriously!")
-    return
+# def __str__(self, password, hashpw):
+#     print("We take our users privacy very seriously!")
+#     return
 
 
 # for logging in with a self.is_authenticated = True (if statement?)
 
+def login(self, password):
+    if self.check_password(password):
+        return True
+    return False
