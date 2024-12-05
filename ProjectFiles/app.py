@@ -38,7 +38,7 @@ app = Flask(__name__)
 #     context = {}
 #     return render_template("base.html", **context)
 
-@app.route("/")
+@app.route("/") 
 def home():
     api_key = config("API_KEY")
     api = TMDB(api_key)
@@ -72,7 +72,6 @@ def links():
 def about_us():
     context = {}
     return render_template("about_us.html", **context)
-
 
 @app.route("/results", methods=["POST"])
 def results():
