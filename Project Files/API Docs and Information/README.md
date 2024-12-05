@@ -53,6 +53,7 @@ POST REQUEST - Add Movies to a List
 link to documentation on this:
 https://developer.themoviedb.org/reference/list-add-movie
 
+main
 ____
 
 ## Process Flow: Get Movie
@@ -91,6 +92,7 @@ Returns results with a similar genre and keywords.  Can be inaccurate
 Advanced search, can be used to search across genre and age ratings
 ```https://api.themoviedb.org/3/discover/movie```
 
+
 ## Suggested Search Flow
 1. User types in movie name on website
 2. If more than 1 movie found then show top 20 movies and ask the user to confirm which movie they mean. STOP
@@ -99,3 +101,7 @@ Advanced search, can be used to search across genre and age ratings
 
 We need this for the single movie info page 
 1. Otherwise, use movie_id from step 4 in and call "get movie details" endpoint
+
+GET REQUEST - Movie Age Certifications - only want GB
+https://api.themoviedb.org/3/certification/movie/list?api_key=7411413e79aba1afbb33df28e0532a6f
+
