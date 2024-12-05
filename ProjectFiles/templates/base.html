@@ -36,6 +36,17 @@
 <div class="container-fluid top_banner">
 </div>
 
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    <ul>
+        {% for category, message in messages %}
+            <li class="alert alert-{{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endwith %}
+
 <!-- Navbar Section below -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-movie-red">
         <div class="container-fluid">
