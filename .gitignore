@@ -2,5 +2,6 @@
 
 .idea/
 
-.env
+*/.env
 .env-*
+.db_config.py

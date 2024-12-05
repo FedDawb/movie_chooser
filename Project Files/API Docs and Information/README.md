@@ -53,5 +53,55 @@ POST REQUEST - Add Movies to a List
 link to documentation on this:
 https://developer.themoviedb.org/reference/list-add-movie
 
+main
+____
+
+## Process Flow: Get Movie
+
+### Find movie
+Call search endpoint with movie name to obtain movie_id
+```https://api.themoviedb.org/3/search/movie?query={movie_title}```
+
+Call endpoint for movie detail with movie_id to fetch extended details, for example the budget, imdb_if, 
+production companies, revenue, run time, tagline and lagnuages.
+```https://api.themoviedb.org/3/movie/{movie_id}```
+ref
+https://developer.themoviedb.org/reference/movie-details
+
+### Image
+Images can be served by using the following URL followed by the ```poster_path``` or 
+```backdrop_path```
+```https://image.tmdb.org/t/p/original```
+
+Additional images can be fetched  by the image endpoint
+```https://api.themoviedb.org/3/movie/{movie_id}/images```
+
+Reference 
+```https://developer.themoviedb.org/reference/movie-images```
+
+## Process Flow: Recommendations
+### Recommendations
+Appears to give decent results
+```https://api.themoviedb.org/3/movie/{movie_id}/recommendations```
+
+### Similar movies
+Returns results with a similar genre and keywords.  Can be inaccurate
+```https://api.themoviedb.org/3/movie/{movie_id}/similar```
+
+### Genre Search
+Advanced search, can be used to search across genre and age ratings
+```https://api.themoviedb.org/3/discover/movie```
+
+
+## Suggested Search Flow
+1. User types in movie name on website
+2. If more than 1 movie found then show top 20 movies and ask the user to confirm which movie they mean. STOP
+3. Call recommendation endpoint using movie_id
+4. Show recommendations to user
+
+We need this for the single movie info page 
+1. Otherwise, use movie_id from step 4 in and call "get movie details" endpoint
+
 GET REQUEST - Movie Age Certifications - only want GB
 https://api.themoviedb.org/3/certification/movie/list?api_key=7411413e79aba1afbb33df28e0532a6f
+
