@@ -58,6 +58,11 @@ def login():
     context = {}
     return render_template("login.html", **context)
 
+@app.route("/register")
+def register():
+    context = {}
+    return render_template("register.html", **context)
+
 @app.route("/links")
 def links():
     context = {}
