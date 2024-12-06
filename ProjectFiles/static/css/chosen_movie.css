@@ -1,3 +1,22 @@
- {
+
+.review_rating {
+    text-align: right;
+    font-weight:bold;
+    font-style: italic;
+}
+
+.review_name{
+    color:red;
+    font-weight:bold;
+}
+
+/*.review_container{
+    padding-left: 20%;
+    padding-right:20%;
+}*/
+
+.accordian_container{
+    padding-left: 20%;
+    padding-right:20%;
 
 }
