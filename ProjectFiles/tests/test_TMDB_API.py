@@ -1,9 +1,6 @@
 import unittest
 from unittest.mock import patch
-
 from ProjectFiles.TMDB_API import TMDB
-
-
 class TMDBTestCase(unittest.TestCase):
 
     def setUp(self):

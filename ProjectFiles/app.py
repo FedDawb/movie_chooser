@@ -4,6 +4,7 @@ from flask import Flask, render_template, request
 # importing flask class from flask package
 # render template for testing
 from TMDB_API import TMDB
+from search import search_by_title
 
 #  This file will house Flask API code, manage routing and integrate with front-end
 """
@@ -81,24 +82,14 @@ def results():
     api_key = config("API_KEY")
     api = TMDB(api_key)
 
-    context = {}
-    movie_id = None
-
-    # Main search page after searching by title
     if request.form.get("search"):
-        results = api.search(title=request.form.get("search"))
-        if results["total_results"] > 1:
-            # More than one result, therefore the user needs to select which film they meant
-            context = {"results": results["results"]}
-        elif results["total_results"] == 1:
-            # Only one result found, this is the movie to get recommendations for
-            movie_id = results["results"][0]["id"]
-        else: # This is for no match found
-            return render_template("not_found.html", search=request.form.get("search"))
-
-    # The else is for when you have multiple results and we ask the user to pick which movie they meant
+        # Main search page after searching by title
+        title = request.form.get("search")
+        movie_id, results = search_by_title(api, title)
     else:
+        # Searching on movie
         movie_id = request.form.get("movie_id")
+        title = ""
         results = api.get_movie_details(movie_id)
 
     if movie_id:
@@ -108,6 +99,10 @@ def results():
             "result": results["results"][0] if results.get("results") else results,
             "recommendations" : api.recommended_movie(movie_id)
         }
+    elif results.get("results"):
+        context = {"results": results["results"]}
+    else:
+        return render_template("not_found.html", search=title)
 
     return render_template("results.html", **context)
 
