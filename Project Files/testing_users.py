@@ -1,5 +1,6 @@
 import unittest
 from users import Users
+import re
 
 # using this file to test and check if the Users class works correctly
 # creating TestingUsersCls with checks for users being set up
@@ -15,6 +16,12 @@ class TestUsersCls(unittest.TestCase):
     def test_password_is_hashed(self):
         self.assertNotEqual(self.user.password, "123456")
         self.assertTrue(isinstance(self.user.password, bytes))
+
+    def test_email_is_valid(self):
+        self.assertTrue(self.user.email,)
+
+    def test_user_added_favourite(self):
+
 
 # self.user.password is referencing details of user1 in setUP to run the test successfully
 
