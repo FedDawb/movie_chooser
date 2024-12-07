@@ -131,6 +131,81 @@ def save_favourite(user_id, api_id):
             connection.close()
 
 
+def remove_from_favourites(user_id, api_id):
+    """
+    Remove a movie or show from a user's favorites.
+    """
+    connection = create_connection()
+    if connection:
+        try:
+            cursor = connection.cursor()
+            cursor.execute(
+                """
+                DELETE FROM Favourites 
+                WHERE user_id = %s AND api_id = %s
+                """,
+                (user_id, api_id),
+            )
+            connection.commit()
+            print(f"API ID {api_id} removed from user ID {user_id}'s favorites.")
+        except Error as e:
+            print(f"Error: '{e}' occurred while removing a favorite.")
+        finally:
+            cursor.close()
+            connection.close()
+
+
+def is_favourite(user_id, api_id):
+    """
+    Check if a movie or show is a favorite for a user.
+    """
+    connection = create_connection()
+    if connection:
+        try:
+            cursor = connection.cursor(dictionary=True)
+            cursor.execute(
+                """
+                SELECT * FROM Favourites 
+                WHERE user_id = %s AND api_id = %s
+                """,
+                (user_id, api_id),
+            )
+            result = cursor.fetchone()
+            return result is not None  # Return True if found, else False
+        except Error as e:
+            print(f"Error: '{e}' occurred while checking if item is a favorite.")
+            return False
+        finally:
+            cursor.close()
+            connection.close()
+
+
+def get_favourites(user_id):
+    """
+    Retrieve all favorite movies or shows for a user.
+    """
+    connection = create_connection()
+    if connection:
+        try:
+            cursor = connection.cursor(dictionary=True)
+            cursor.execute(
+                """
+                SELECT api_id 
+                FROM Favourites 
+                WHERE user_id = %s
+                """,
+                (user_id,),
+            )
+            favourites = cursor.fetchall()
+            return [favourite["api_id"] for favourite in favourites]
+        except Error as e:
+            print(f"Error: '{e}' occurred while retrieving favorites.")
+            return []
+        finally:
+            cursor.close()
+            connection.close()
+
+
 def block_item(user_id, api_id):
     """
     Block a movie or show for a user.
