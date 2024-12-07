@@ -103,7 +103,7 @@
             <h1>Actors</h1>
             <div class="row">
                 {% for actor in actors.cast %}
-                {% if loop.index < 11 %}
+                {% if loop.index < 10 %}
                     <div class="col-4 text-center">
                         <img class="image-fluid actor_image mb-3" src="https://image.tmdb.org/t/p/original{{ actor_photo(actor.id).file_path }}" height="100"/>
                         <br>
@@ -112,7 +112,7 @@
                     </div>
                 {% endif %}
                 {% endfor %}
-
+<hr>
             </div>
                 <div class="text-center container-fluid me-2">
                     <h1>Trailer</h1><br>
