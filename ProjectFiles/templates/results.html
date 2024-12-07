@@ -3,78 +3,80 @@
 {% block title %}Results{% endblock %}
 
 {% block page_css %}
-    <link rel="stylesheet" href="/static/css/results.css">
+<link rel="stylesheet" href="/static/css/results.css">
 {% endblock %}
 
 {% block content %}
 
-    <!-- Movie Chooser Title Section -->
-    <div class="container py-5">
+<!-- Movie Chooser Title Section -->
+<div class="container py-5">
+</div>
+
+{% if not movie_id and results %}
+<h2 class="mb-5 heading-style">Multiple results found, please choose the film you would like to compare </h2>
+
+<div class="row container-sm container_stuff mx-4">
+    {% for movie in results %}
+
+    <div class="col-5 mb-3">
+        <form method="POST">
+            <input type="hidden" name="movie_id" value="{{ movie.id }}">
+            <img class="image_border" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="150"
+                 height="200" onclick="submitForm(this)"><br>
+        </form>
+    </div>
+    <div class="col-7">
+        <form method="POST">
+            <p class="mb-0 film_title" onclick="submitForm(this)">{{ movie.title }}</p>
+            <input type="hidden" name="movie_id" value="{{ movie.id }}">
+        </form>
+        <div class="">
+            <p> {{ movie.overview }}</p>
+        </div>
     </div>
 
-    {% if not movie_id and results %}
-    <h2 class="mb-5 heading-style">Multiple results found, please choose the film you would like to compare </h2>
+    {% endfor %}
 
-    <div class="row container-sm container_stuff mx-4">
-        {% for movie in results %}
+</div>
 
-        <div class="col-5 mb-3">
-            <form method="POST">
-                <input type="hidden" name="movie_id" value="{{ movie.id }}">
-                <img class="image_border" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="150" height="200" onclick="submitForm(this)"><br>
-            </form>
+{% else %}
+<div class="">
+
+    <div class="row container-sm container_stuff mb-4">
+        <div class="col-5">
+            <a class="film_title" href="{{ url_for('chosen_movie', movie_id=result.id) }}">
+                <img class="image_border" src="https://image.tmdb.org/t/p/original{{ result.poster_path }}" width="150"
+                     height="200"><br>
+            </a>
         </div>
         <div class="col-7">
-                <form method="POST">
-                    <p class="mb-0 film_title" onclick="submitForm(this)">{{ movie.title }}</p>
-                <input type="hidden" name="movie_id" value="{{ movie.id }}">
-                </form>
-                <div class="">
-                    <p> {{ movie.overview }}</p>
-                </div>
+            <p class="">
+                <a class="film_title" href="{{ url_for('chosen_movie', movie_id=result.id) }}">{{ result.title }}</a>
+            </p>
+            <p> {{ result.overview }}</p>
         </div>
 
-        {% endfor %}
-
-    </div>
-
-    {% else %}
-    <div class="">
-
-        <div class="row container-sm container_stuff mb-4">
-            <div class="col-5">
-                <a class="film_title" href="{{ url_for('chosen_movie', movie_id=result.id) }}">
-                 <img class="image_border" src="https://image.tmdb.org/t/p/original{{ result.poster_path }}" width="150" height="200"><br>
-                </a>
-            </div>
-            <div class="col-7">
-                <p class="">
-                    <a class="film_title" href="{{ url_for('chosen_movie', movie_id=result.id) }}">{{ result.title }}</a></p>
-                <p> {{ result.overview }}</p>
-            </div>
-        <div>
-            </div>
     </div>
 
     <div>
-                <h1 class="my-4 heading-style">Recommended Movies</h1>
+        <h1 class="my-4 heading-style">Recommended Movies</h1>
     </div>
 
     <div class="row container-sm container_stuff">
-    {% for movie in recommendations.results %}
+        {% for movie in recommendations.results %}
         {% include "result_block.html" %}
-    {% endfor %}
+        {% endfor %}
     </div>
     {% endif %}
-
+</div>
 {% endblock %}
 
 
 {% block page_js %}
 <script>
-function submitForm(elm) {
-    elm.closest("form").submit()
-}
+    function submitForm(elm) {
+        elm.closest("form").submit()
+    }
 </script>
 {% endblock %}
 
