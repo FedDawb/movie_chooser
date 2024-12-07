@@ -3,9 +3,9 @@
 {% block title %}Home{% endblock %}
 
 {% block page_css %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-    <link rel="stylesheet" href="static/css/carousel.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" href="static/css/carousel.css">
 
 <style>
 
@@ -32,7 +32,7 @@
 <div class="container-fluid backdrop p-0 position-relative ">
     <div class="container-fluid backdrop_filter m-0 p-0">
         <div class="container-fluid position-absolute top-50">
-        <!-- put your search word in the search bar, this is POST to the 'results' page in app.py -->
+            <!-- put your search word in the search bar, this is POST to the 'results' page in app.py -->
             <div class="container">
                 <div class="row justify-content-center">
                     <form method="post" action="{{ url_for('results') }} ">
@@ -47,77 +47,89 @@
     </div>
 </div>
 
-    <!-- Below is the code for the "Most Popular" carousel-->
+<!-- Below is the code for the "Most Popular" carousel-->
 <div class="container text-center mt-3">
-      <div class=""><a class="carousel_title" href=""><h3> Most Popular </h3></a></div>
+    <div class=""><a class="carousel_title" href=""><h3> Most Popular </h3></a></div>
 
-        <div class="responsive">
-            {% for movie in popular_movies %}
+    <div class="responsive">
+        {% for movie in popular_movies %}
+        <div>
+            <img class="image_border image" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="150"
+                 height="200"><br>
             <div>
-                <img class="image_border image" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="150" height="200"><br>
-                <div>
-                    <div class="container">
-                      <div class="row h-25">
-                        <div class="col column_styling "><a class="mb-0 film_title" href="{{ url_for('chosen_movie', movie_id=movie.id) }}">{{ movie.title }}</a></div>
+                <div class="container">
+                    <div class="row h-25">
+                        <div class="col column_styling "><a class="mb-0 film_title"
+                                                            href="{{ url_for('chosen_movie', movie_id=movie.id) }}">{{
+                            movie.title }}</a></div>
                         <div class="w-100"></div>
                         <div class="col {% if movie.vote_average > 4 %} text-success {% elif movie.vote_average < 3 %} text-danger {% else %} text-warning {% endif %}">
                             Rating: {{ movie.vote_average }}
                         </div>
-                      </div>
                     </div>
                 </div>
             </div>
-            {% endfor %}
-
         </div>
+        {% endfor %}
+
     </div>
+</div>
 
-    <!-- Below is the code for the "Top Rated" carousel -->
- <div class="container text-center mt-4">
-      <div class=""><a class="carousel_title" href=""><h3> Top Rated </h3></a></div>
-
-        <div class="responsive">
-            {% for movie in top_rated %}
-            <div>
-                <img class="image_border image" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="150" height="200"><br>
-                <div>
-                    <div class="container">
-                      <div class="row h-25">
-                        <div class="col column_styling"><a class="mb-0 film_title" href="{{ url_for('chosen_movie', movie_id=movie.id) }}">{{ movie.title }}</a></div>
-                        <div class="w-100"></div>
-                        <div class="col {% if movie.vote_average > 4 %} text-success {% elif movie.vote_average < 3 %} text-danger {% else %} text-warning {% endif %}">Rating: {{ movie.vote_average }}</div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-
-        </div>
-    </div>
-
-    <!-- Below is the code for the "Upcoming" carousel -->
+<!-- Below is the code for the "Top Rated" carousel -->
 <div class="container text-center mt-4">
-      <div class=""><a class="carousel_title" href=""><h3> Upcoming </h3></a></div>
+    <div class=""><a class="carousel_title" href=""><h3> Top Rated </h3></a></div>
 
-        <div class="responsive">
-            {% for movie in upcoming_movies %}
+    <div class="responsive">
+        {% for movie in top_rated %}
+        <div>
+            <img class="image_border image" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="150"
+                 height="200"><br>
             <div>
-                <img class="image_border image" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="150" height="200"/><br>
-                <div>
-                    <div class="container">
-                      <div class="row h-25">
-                        <div class="col column_styling"><a class="mb-0 film_title" href="{{ url_for('chosen_movie', movie_id=movie.id) }}">{{ movie.title }} </a></div>
+                <div class="container">
+                    <div class="row h-25">
+                        <div class="col column_styling"><a class="mb-0 film_title"
+                                                           href="{{ url_for('chosen_movie', movie_id=movie.id) }}">{{
+                            movie.title }}</a></div>
                         <div class="w-100"></div>
-                        <div class="col {% if movie.vote_average > 4 %} text-success {% elif movie.vote_average < 3 %} text-danger {% else %} text-warning {% endif %}">Rating: {{ movie.vote_average }}</div>
-                      </div>
+                        <div class="col {% if movie.vote_average > 4 %} text-success {% elif movie.vote_average < 3 %} text-danger {% else %} text-warning {% endif %}">
+                            Rating: {{ movie.vote_average }}
+                        </div>
                     </div>
                 </div>
             </div>
-            {% endfor %}
-
         </div>
-    </div>
+        {% endfor %}
 
+    </div>
+</div>
+
+<!-- Below is the code for the "Upcoming" carousel -->
+<div class="container text-center mt-4">
+    <div class=""><a class="carousel_title" href=""><h3> Upcoming </h3></a></div>
+
+    <div class="responsive">
+        {% for movie in upcoming_movies %}
+        <div>
+            <img class="image_border image" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="150"
+                 height="200"/><br>
+            <div>
+                <div class="container">
+                    <div class="row h-25">
+                        <div class="col column_styling"><a class="mb-0 film_title"
+                                                           href="{{ url_for('chosen_movie', movie_id=movie.id) }}">{{
+                            movie.title }} </a></div>
+                        <div class="w-100"></div>
+                        <div class="col {% if movie.vote_average > 4 %} text-success {% elif movie.vote_average < 3 %} text-danger {% else %} text-warning {% endif %}">
+                            Rating: {{ movie.vote_average }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
 
 
 {% endblock %}
@@ -125,14 +137,14 @@
 
 {% block page_js %}
 
-    <script
-      src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
-      integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
-      crossorigin="anonymous">
+<script
+        src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+        integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+        crossorigin="anonymous">
 
-    </script>
+</script>
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script src="static/js/carousel.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="static/js/carousel.js"></script>
 
 {% endblock %}
