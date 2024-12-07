@@ -36,50 +36,45 @@
 <div class="container-fluid top_banner">
 </div>
 
-<!-- Flash Messages -->
-{% with messages = get_flashed_messages(with_categories=true) %}
-{% if messages %}
-    <ul>
-        {% for category, message in messages %}
-            <li class="alert alert-{{ category }}">{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-{% endwith %}
-
 <!-- Navbar Section below -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-movie-red">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url_for('home') }}"> <i class="fas fa-film"></i></a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-movie-red">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('home') }}"> <i class="fas fa-film"></i></a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <!-- Dropdown Menu -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            MENU
-                        </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ url_for('home') }}">HOME</a></li>
-                        <li><a class="dropdown-item" href="{{ url_for('about_us') }}">ABOUT US</a></li>
-                        <li><a class="dropdown-item" href="{{ url_for('links') }}">STREAMING SITES</a></li>
-                    </ul>
-                    </li>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <!-- Dropdown Menu -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        MENU
+                    </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="{{ url_for('home') }}">HOME</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('about_us') }}">ABOUT US</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('links') }}">STREAMING SITES</a></li>
                 </ul>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('login') }}">
-                            <i class="fa-regular fa-circle-user fa-shake login-icon"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                {% if username %}
+                <li>{{ username }}</li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('login') }}">
+                        <i class="fa-regular fa-circle-user fa-shake login-icon"></i>
+                    </a>
+                </li>
+                {% if username %}
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% endif %}
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
 {% block content %}
 

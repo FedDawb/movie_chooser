@@ -15,17 +15,16 @@
     <p class="lead">Find your next favorite movie effortlessly!</p>
 </div>
 
+
 <div class="login-container">
-  <h2>User Login</h2>
-    <form action="/sign_in" method="POST">
+  <h2>Sign Up Form</h2>
+    <form action="/create_user" method="POST">
         <label for="username">Username</label>
         <input type="text" id="username" name="username" placeholder="Enter username" required>
         <label for="password">Password</label>
         <input type="password" id="password" name="password" placeholder="Enter password" required>
-        <button type="submit">Login</button>  
+        <button type="submit">Create Account</button>
     </form>
-    <p>{{ failure_message }}</p>
-    <a href="{{ url_for('signup') }}">Sign Up</a> 
 </div>
 
 {% endblock %}
