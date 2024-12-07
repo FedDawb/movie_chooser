@@ -51,6 +51,11 @@
 }
 
 .poster{
-        box-shadow: 7px 7px 2px rgba(44, 45, 45, .7) black;
         border-radius:7px;
+
+}
+
+.favourite_button{
+    text-align:center;
+    float:center;
 }

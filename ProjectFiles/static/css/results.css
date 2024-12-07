@@ -1,10 +1,10 @@
 .film_title {
-    text-decoration: none;
     color:black;
     font-family: "Montserrat", sans-serif;
-    font-optical-sizing: 20px;
+    font-size: 25px;
     font-weight: 400;
     font-style: normal;
+    text-decoration:underline;
 }
 
 .container_stuff {
@@ -15,6 +15,8 @@
 
 .image_border{
     border: solid 1px black;
+    float: right;
+    border-radius:7px;
 }
 
 .column_styling {
@@ -26,3 +28,9 @@
     display: block;
     overflow: hidden;
 }
+
+.heading-style{
+    color:black;
+}
+
+

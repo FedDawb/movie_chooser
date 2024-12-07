@@ -243,3 +243,7 @@ h3 {
 .rating{
     color: red;
 }
+
+.image{
+    border-radius:7px;
+}
