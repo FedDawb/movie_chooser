@@ -1,4 +1,8 @@
 
+:root{
+    --tmdbDarkBlue: 3, 37, 65;
+}
+
 .review_rating {
     text-align: right;
     font-weight:bold;
@@ -15,8 +19,38 @@
     padding-right:20%;
 }*/
 
-.accordian_container{
-    padding-left: 20%;
-    padding-right:20%;
+.review_container{
+    padding-left: 15%;
+    padding-right:15%;
+    float:left;
 
+}
+
+.actors{
+        color:#000000;
+}
+
+.icons{
+    border-radius: 50px;
+    width: 50px;
+
+}
+.actor_image{
+    border-radius:10px;
+    border: solid 1px black;
+    box-shadow: 5px 5px 2px rgb(44, 45, 45);
+}
+
+.tagline{
+    color:#ffd933;
+}
+
+.recommended{
+    color:white;
+    font-size:1.5vw;
+}
+
+.poster{
+        box-shadow: 7px 7px 2px rgba(44, 45, 45, .7) black;
+        border-radius:7px;
 }

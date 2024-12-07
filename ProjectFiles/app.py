@@ -1,3 +1,5 @@
+import math
+from random import random
 from decouple import config
 from flask import Flask, render_template, request, jsonify, flash, redirect, url_for
 # importing packages:
@@ -55,7 +57,8 @@ def home():
     context = {
         "popular_movies": popular["results"],
         "upcoming_movies" : upcoming["results"],
-        "top_rated" : top_rated["results"]
+        "top_rated" : top_rated["results"],
+        "backdrop" : popular["results"][math.floor(random() * len(popular["results"]))]
     }
     return render_template("index_2.html", **context)
 
@@ -150,9 +153,23 @@ def chosen_movie(movie_id):
     context = {
         "movie": api.get_movie_details(movie_id),
         "reviews": api.reviews(movie_id),
-        "actors": api.actors(movie_id)
+        "actors": api.actors(movie_id),
+        "provider" : api.provider(movie_id),
+        "movie_videos" : api.movie_videos(movie_id),
+        "recommendations": api.recommended_movie(movie_id)
+
     }
     return render_template("chosen_movie.html", **context)
+
+
+@app.context_processor
+def chosen_movie_processor():
+    def actor_photo(person_id):
+        api_key = config("API_KEY")
+        api = TMDB(api_key)
+        images = api.person_image(person_id)
+        return images["profiles"][0] if images.get("profiles") and images["profiles"] else {}
+    return dict(actor_photo=actor_photo)
 
 
 @app.route("/actor/<int:person_id>")
@@ -164,6 +181,7 @@ def actor(person_id):
         "person": api.person_details(person_id),
     }
     return render_template("actor.html", **context)
+
 # telling the script to run if running this file and using the debugger to ensure it runs correctly and if not it will
 # tell us immediately
 
