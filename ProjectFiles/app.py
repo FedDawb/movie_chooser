@@ -8,29 +8,13 @@ from database import db_utils, auth_utils
 from search import search_by_title
 
 #  This file will house Flask API code, manage routing and integrate with front-end
-"""
-route ideas
-1. landing page
-/ home
 
-2. login page
-/ login
-
-3. displays list of favourite film(s)
-/ faves
-
-4. displays list of films based on user input(s)
-/ user / search
-
-5. enables user to add or remove a film on the favourites list
-/ faves / edit (add/delete a fave film)
-"""
 
 # asking flask to use this file to run the request server side
 app = Flask(__name__)
 
 app.secret_key = 'my_secret'
-#app.config['SESSION_PERMENANT'] = False # Delete cookie when browser closes
+# app.config['SESSION_PERMANENT'] = False # Delete cookie when browser closes
 
 # app routing:
 # the ROOT ADDRESS for our application is "/" our first function "home()" will manage the logic for the landing page
