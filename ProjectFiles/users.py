@@ -1,5 +1,7 @@
 import re
 import bcrypt
+from ProjectFiles.endpoints import tmdb
+
 
 # importing BCrypt library to hash passwords and RegEx to validate user emails
 # This file will be used to define our User class and authentication
@@ -57,9 +59,15 @@ class Under18Users(Users):
         super().__init__(user_id, email, username, age, password)
 
     def can_watch_film(self, certification):
-        if certification == "18":
-            return False  # ensures that only users who are 18 can have films rated 18 returned
-        return True
+        return certification != "18"  # ensures that only users who are 18 can have films rated 18 returned
+
+# starting to create the function to filter the films shown to the user based on if the user is 18+ or <18
+# def filter_by_certification(user, movies):
+#     filter_films = []
+#     for film in films:
+#         certification = film.get("certification")
+#         if user.can_watch_film(certification):
+#             filtered_films.
 
 # def __str__(self, password, hashpw):
 #     print("We take our users privacy very seriously!")
