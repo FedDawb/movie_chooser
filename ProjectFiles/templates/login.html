@@ -8,24 +8,14 @@
 {% endblock %}
 
 {% block content %}
-
-<!-- Movie Chooser Title -->
-<div class="container py-5 text-center bg-light">
-    <h1 class="display-3">MOVIE NATCHER</h1>
-    <p class="lead">Find your next favorite movie effortlessly!</p>
-</div>
-
-<div class="login-container">
+<div class="login-container py-5 my-5">
     <h2>User Login</h2>
-    <form id="loginForm">
-  <h2>User Login</h2>
     <form action="/sign_in" method="POST">
         <label for="username">Username</label>
         <input type="text" id="username" name="username" placeholder="Enter username" required>
         <label for="password">Password</label>
         <input type="password" id="password" name="password" placeholder="Enter password" required>
         <button type="submit">Login</button>
-        <button type="button" onclick="handleLogin()">Login</button>
     </form>
     <p>{{ failure_message }}</p>
     <a href="{{ url_for('signup') }}">Sign Up</a>
