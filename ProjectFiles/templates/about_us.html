@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}Links{% endblock %}
+
+{% block content %}
+
+<main class="about_us">
+    <h1 class="About">About Us</h1>
+    <p class="about_details">
+        Created this project as part of a group project to practice and showcase our software development skills learned
+        over the course.
+    </p>
+    <div class="skill_Section">
+        <h2>Languages used in project:</h2>
+
+        <div class="languages">
+            <div class="language">
+                <p>Python</p>
+                <i class="fa-brands fa-python fa-2xl" style="color: #FFD43B;"></i>
+            </div>
+
+            <div class="language">
+                <p>SQL</p>
+                <i class="fa-solid fa-database fa-2xl" style="color: #FFD43B;"></i>
+            </div>
+
+            <div class="language">
+                <p>HTML</p>
+                <i class="fa-brands fa-html5 fa-2xl" style="color: #FFD43B;"></i>
+            </div>
+
+            <div class="language">
+                <p>CSS</p>
+                <i class="fa-brands fa-css3 fa-2xl" style="color: #FFD43B;"></i>
+            </div>
+
+            <div class="language">
+                <p>JavaScript</p>
+                <i class="fa-brands fa-js fa-2xl" style="color: #FFD43B;"></i>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<div class="accordion container-lg py-5" id="accordionPanelsStayOpenExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                    aria-controls="panelsStayOpen-collapseOne">
+                Languages used
+            </button>
+        </h2>
+        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+            <div class="accordion-body">
+                <ul class="language-list">
+                    <li><strong>HTML</strong> Used to create the structure of the webpage.</li>
+                    <li><strong>CSS</strong> Created the styling and design of the site.</li>
+                    <li><strong>JavaScript</strong> To add behaviour and help the user interact.</li>
+                    <li><strong>Python</strong>Programming</li>
+                    <li><strong>SQL</Strong>Managing datatbased and used to query data.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseTwo">
+                Team
+            </button>
+        </h2>
+        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+            <div class="accordion-body">
+                <ul class="team-list">
+                    <li><strong>Rebecca</strong> Worked on......</li>
+                    <li><strong>Dawn</strong> Worked on........</li>
+                    <li><strong>Tash</strong> Worked on......</li>
+                    <li><strong>Emily</strong>Worked on..........</li>
+                    <li><strong>Amy</Strong>Worked on..........</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseThree">
+                Highlights of the project
+            </button>
+        </h2>
+        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+            <div class="accordion-body">
+                <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse
+                plugin adds the appropriate classes that we use to style each element. These classes control the overall
+                appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with
+                custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go
+                within the <code>.accordion-body</code>, though the transition does limit overflow.
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

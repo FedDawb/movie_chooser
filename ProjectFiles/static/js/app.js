@@ -37,3 +37,20 @@ document.getElementById("subscribeButton").addEventListener("click", function() 
         alert("Please enter a valid email");
     }
 });
+
+//Registration page
+
+function handleRegister() {
+//?info for registration code
+const username = document.getElementById('new-username').value;
+const password = document.getElementById('new-password').value;
+const confirmPassword = document.getElementById('confirm-password').value
+const age = document.getElementById('age').value
+
+if (password !== confirmPassword) {
+alert("passwords do not match");
+return;
+}
+console.log("Registration function call",{username, password, age});
+//add info to save to databases
+}

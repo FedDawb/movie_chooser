@@ -1,7 +1,13 @@
 import json
 import bcrypt
 from mysql.connector import connect, Error
-from db_config import DB_CONFIG
+# from db_config import DB_CONFIG
+
+
+# Next step:
+# Database configuration details from .env file
+
+
 
 def create_connection():
     """
@@ -10,9 +16,9 @@ def create_connection():
     try:
         connection = connect(
             host="localhost",        # Replace with your MySQL host
-            user="your_user",        # Replace with your MySQL username
-            password="your_password",# Replace with your MySQL password
-            database="db_movie_night"# Replace with your database name
+            user="root",        # Replace with your MySQL username
+            password="toor", # Replace with your MySQL password
+            database="db_movie_night" # Replace with your database name
         )
         return connection
     except Error as e:
@@ -188,6 +194,31 @@ def delete_user(user_id):
             print(f"User ID {user_id} deleted successfully.")
         except Error as e:
             print(f"Error: '{e}' occurred while deleting a user.")
+        finally:
+            cursor.close()
+            connection.close()
+
+def validate_user_login(email, password):
+    """Validate a user's login credentials."""
+    connection = create_connection()
+    if connection:
+        try:
+            cursor = connection.cursor(dictionary=True)
+            cursor.execute(
+                "SELECT password_hash FROM Users WHERE email = %s",
+                (email,)
+            )
+            user = cursor.fetchone()
+
+            if user and bcrypt.checkpw(password.encode('utf-8'), user["password_hash"].encode('utf-8')):
+                print("Login successful!")
+                return True
+            else:
+                print("Invalid email or password.")
+                return False
+        except Error as e:
+            print(f"Error: '{e}' occurred during login validation.")
+            return False
         finally:
             cursor.close()
             connection.close()
