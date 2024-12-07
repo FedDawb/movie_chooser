@@ -3,6 +3,6 @@
 .idea/
 .vscode/
 
-*/.env
+ProjectFiles/.env
 .env-*
 .db_config.py

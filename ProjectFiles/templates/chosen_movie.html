@@ -4,52 +4,121 @@
 
 {% block page_css %}
     <link rel="stylesheet" href="/static/css/chosen_movie.css">
+    <link rel=”stylesheet” href=”https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css” />
+    <style>
+        :root{
+            --tmdbDarkBlue: 3, 37, 65;
+        }
+        .backdrop{
+            background-image: url("https://image.tmdb.org/t/p/original{{movie.backdrop_path}}");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .backdrop_filter{
+            background-image: linear-gradient(to right,rgba(var(--tmdbDarkBlue),1) 150px,rgba(var(--tmdbDarkBlue),.84) 100%);
+            color:white;
+        }
+        iframe {
+        width: 100%;
+        min-height: 315px;
+
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
-    <!-- Movie Chooser Title Section -->
-    <div class="container py-5 text-center bg-light">
-        <h1 class="display-3">{{ movie.title }}</h1>
-        <h3> {{movie.tagline }}</h3>
-    </div>
+<!--    &lt;!&ndash; Movie Chooser Title Section &ndash;&gt;-->
+<!--    <div class="container py-5 text-center bg-light">-->
+<!--        <h1 class="display-3">{{ movie.title }}</h1>-->
+<!--        <h3> {{movie.tagline }}</h3>-->
+<!--    </div>-->
 
+<div class="container-fluid backdrop p-0 ">
+    <div class="container-fluid backdrop_filter m-0 p-0">
+        <div class="container pt-5">
+            <div class="row ">
+                <div class="col position-relative ">
+                    <h1 class="tagline">{{ movie.tagline }}</h1>
+                    <div class="mt-4">
+                        <h4>Overview</h4>
+                    {{ movie.overview }}
+                        </div>
+                    <div class="mt-4 {% if movie.vote_average > 4 %} text-success {% elif movie.vote_average < 3 %} text-danger {% else %} text-warning {% endif %}">
+                        <p>The average rating for this movie is {{ movie.vote_average }}</p>
+                    </div>
 
+                    <div>
+                        <form action="{{ url_for('results') }}" method="post">
+                            <input name="movie_id" type="hidden" value="{{ movie.id }}">
+                         <button type="submit" class="btn btn-outline-success recommended">More like this</button>
+                        </form>
+                    </div>
 
-<div class="container">
+                    {% if provider.results.GB %}
+                    <div class="position-absolute bottom-0 mb-3">
+                        To watch this movie <br>
 
-    <div class="row">
-        <div class="col">
-            <h2>Overview</h2>
-            {{ movie.overview }}
-            <div class="mt-4 {% if movie.vote_average > 4 %} text-success {% elif movie.vote_average < 3 %} text-danger {% else %} text-warning {% endif %}">
-                <p>The average rating for this movie is {{ movie.vote_average }}</p>
-            </div>
-                {% for actor in actors.cast %}
-                {% if loop.index < 11 %}
-                <div>
-                    <a href="{{ url_for('actor', person_id=actor.id) }}">{{ actor.name }}</a>
+                        {% for provider in provider.results.GB.flatrate %}
+                        <img class="icons image-fluid" src="https://image.tmdb.org/t/p/original{{provider.logo_path}}" />
+                        {% endfor %}
+                        <br>
+                        To buy<br>
+                            {% for provider in provider.results.GB.buy %}
+                                    <img class="icons image-fluid" src="https://image.tmdb.org/t/p/original{{provider.logo_path}}" />
+                            {% endfor %}
+                    </div>
+                    {% endif %}
+
                 </div>
-                {% endif %}
-                {% endfor %}
-        </div>
 
-        <div class="col text-end">
-            <img class="image_border" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="400" height="500">
-        </div>
+                <div class="col text-end">
+                    <img class="image_border mb-5 poster" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="300" height="450"><br>
+                     <a class="recommended" href="">Add to favourites</a>
+                </div>
 
+            </div>
+
+        </div>
     </div>
 </div>
+
+
+
+
+
 <div class="container mt-5">
-    <div class="row ">
-        <div class="col"><h2>Reviews</h2></div>
-    </div>
     <div class="row">
-          {% for review in reviews.results %}
-        <div class="col-12">
-            <p>{{ review.content|safe }}</p>
-            <p><b>Review by:</b> {{ review.author }}</p>
+
+
+        <div class="col-6">
+            <h1>Reviews</h1>
+                      {% for review in reviews.results %}
+                        <p><span class="review_name">Review by:</span> {{ review.author }}</p>
+                        <p>{{ review.content|safe }}</p>
+                        <p class="review_rating"> Reviewer rating: {{ review.author_details.rating }} </p>
+            <hr>
+                    {% endfor %}
         </div>
-        {% endfor %}
+        <div class="col-6 ps-4 ">
+            <h1>Actors</h1>
+            <div class="row">
+                {% for actor in actors.cast %}
+                {% if loop.index < 11 %}
+                    <div class="col-4 text-center">
+                        <img class="image-fluid actor_image mb-3" src="https://image.tmdb.org/t/p/original{{ actor_photo(actor.id).file_path }}" height="100"/>
+                        <br>
+                        <a class="actors mt-2" href="{{ url_for('actor', person_id=actor.id) }}">{{ actor.name }}</a>
+                        <p> {{ actor.character }}  </p>
+                    </div>
+                {% endif %}
+                {% endfor %}
+
+            </div>
+                <div class="text-center container-fluid me-2">
+                    <h1>Trailer</h1><br>
+                    <iframe src="https://www.youtube.com/embed/{{ movie_videos.results.0.key }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+        </div>
     </div>
 </div>
 
