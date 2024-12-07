@@ -109,5 +109,3 @@ class TMDB:
         result = requests.get(f"{self.base_url}{url}", headers=headers)
         return result.json()
 
-
-
