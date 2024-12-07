@@ -31,7 +31,7 @@
 }
 
 .icons{
-    border-radius: 50px;
+    border-radius: 10px;
     width: 50px;
 
 }
@@ -51,6 +51,29 @@
 }
 
 .poster{
-        box-shadow: 7px 7px 2px rgba(44, 45, 45, .7) black;
         border-radius:7px;
+    float:center;
+}
+
+.favourite_button{
+    text-align:center;
+    float:center;
+}
+.text-end{
+    text-align:center !important;
+}
+
+.more_button{
+    float:left;
+    font-size:10px;
+}
+
+.review_element{
+        border-radius:10px;
+    border: solid 1px black;
+    box-shadow: 5px 5px 2px rgb(44, 45, 45);
+}
+h2{
+    color:black;
+    text-align:left;
 }
