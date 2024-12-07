@@ -6,3 +6,4 @@
 ProjectFiles/.env
 .env-*
 .db_config.py
+ProjectFiles/db_config.py
