@@ -1,5 +1,5 @@
 import unittest
-from users import Users
+from users import Users, Over18Users, Under18Users
 import re
 
 # using this file to test and check if the Users class works correctly
@@ -18,7 +18,7 @@ class TestUsersCls(unittest.TestCase):
         self.assertTrue(isinstance(self.user.password, bytes))
 
     def test_email_is_valid(self):
-        self.assertTrue(self.user.email,)
+        self.assertTrue(Users.user.email,)
 
     def test_user_added_favourite(self):
 
