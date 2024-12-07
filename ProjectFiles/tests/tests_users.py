@@ -1,5 +1,5 @@
 import unittest
-from users import Users, Over18Users, Under18Users
+from ProjectFiles.users import Users
 import re
 
 # using this file to test and check if the Users class works correctly
@@ -15,12 +15,14 @@ class TestUsersCls(unittest.TestCase):
 # test to check that the users saved password is the hashed one (UTF-8) and not the user input string
     def test_password_is_hashed(self):
         self.assertNotEqual(self.user.password, "123456")
-        self.assertTrue(isinstance(self.user.password, bytes))
+        self.assertIsInstance(self.user.password, bytes)
 
+# test to check that the users email address is entered in the valid format according to the Users class using regex
     def test_email_is_valid(self):
-        self.assertTrue(Users.user.email,)
+        email_regex = r"^[a-zA-Z0-0_.+-]+@[a-zA-Z0-0-]+\.[a-zA-Z0-9-.]+$"
+        self.assertRegex(self.user.email, email_regex)
 
-    def test_user_added_favourite(self):
+    # def test_user_added_favourite(self):
 
 
 # self.user.password is referencing details of user1 in setUP to run the test successfully

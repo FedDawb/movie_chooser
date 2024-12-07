@@ -95,6 +95,15 @@ def create_user():
     password = request.form.get("password")
     db_utils.add_user(username, username, password, 20)
     return f"Thank you for registering, {username}!"
+"""
+    def age_certifications(self, certification):
+        url = f"{certification}/movie/list"
+        response = requests.get(url)
+        certifications = response.json()["certifications"]["GB"]  # should return the certifications from the GB array
+        return self.call_api(url)
+
+
+"""
 
 @app.route("/logout")
 def logout():
