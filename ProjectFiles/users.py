@@ -1,4 +1,5 @@
 import bcrypt
+from database import auth_utils
 # importing BCrypt library to hash passwords
 # This file will be used to define our User class and authentication
 
