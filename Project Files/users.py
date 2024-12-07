@@ -1,4 +1,6 @@
+import re
 import bcrypt
+from database import db_utils
 # import re
 
 # importing BCrypt library to hash passwords and RegEx to validate user emails
@@ -39,6 +41,27 @@ class Users:
             return True  # the user entered a password that matches the hashed one
         return False  # the user entered a password that doesn't match the hashed one
 
+
+def check_email(email):
+    valid_email = r"\b[A-Za-z0-9._%+-] +@[A-Z|a-z]{2,}\b"
+    return re.match(valid_email, email)
+
+# creating an 18+ and <18 user subclass to filter what films are available to them based on their age at sign up
+
+
+class Over18Users(Users):
+    def can_watch_film(self, certification):
+        return True
+
+
+class Under18Users(Users):
+    def __init__(self, user_id, email, username, age, password):
+        super().__init__(user_id, email, username, age, password)
+
+    def can_watch_film(self, certification):
+        if certification == "18":
+            return False  # ensures that only users who are 18 can have films rated 18 returned
+        return True
 
 # def __str__(self, password, hashpw):
 #     print("We take our users privacy very seriously!")
