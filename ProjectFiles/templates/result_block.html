@@ -1,0 +1,12 @@
+<div class="col-5 mb-4 ">
+    <a class="" href="{{ url_for('chosen_movie', movie_id=movie.id) }}">
+        <img class="image_border" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="150"
+             height="200"><br>
+    </a>
+</div>
+<div class="col-7">
+    <a class="mb-0 film_title" href="{{ url_for('chosen_movie', movie_id=movie.id) }}">{{ movie.title }}</a>
+    <div class="">
+        <p> {{ movie.overview }}</p>
+    </div>
+</div>

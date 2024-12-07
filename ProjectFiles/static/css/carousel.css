@@ -41,7 +41,7 @@
     outline: none;
     background: transparent;
 }
-}
+
 .slick-prev:hover,
 .slick-prev:focus,
 .slick-next:hover,
@@ -242,4 +242,8 @@ h3 {
 
 .rating{
     color: red;
+}
+
+.image{
+    border-radius:7px;
 }

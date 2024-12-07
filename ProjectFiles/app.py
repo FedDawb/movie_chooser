@@ -1,9 +1,14 @@
+import math
+from random import random
 from decouple import config
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect, url_for
 # importing packages:
 # importing flask class from flask package
 # render template for testing
 from TMDB_API import TMDB
+import hashlib
+from database import db_utils
+from search import search_by_title
 
 #  This file will house Flask API code, manage routing and integrate with front-end
 """
@@ -27,6 +32,9 @@ route ideas
 # asking flask to use this file to run the request server side
 app = Flask(__name__)
 
+app.secret_key = 'my_secret'
+#app.config['SESSION_PERMENANT'] = False # Delete cookie when browser closes
+
 # app routing:
 # the ROOT ADDRESS for our application is "/" our first function "home()" will manage the logic for the landing page
 # using the app route decorator "app.route" binds the function and its logic to this root url
@@ -42,14 +50,21 @@ app = Flask(__name__)
 def home():
     api_key = config("API_KEY")
     api = TMDB(api_key)
+
     popular = api.popular_films()
     upcoming = api.upcoming_films()
     top_rated = api.top_rated()
-
+    username = session.get("user")
+    
+    # Assuming you want to use the backdrop of the first popular movie
+    backdrop = popular["results"][0] if popular["results"] else None
+    
     context = {
         "popular_movies": popular["results"],
         "upcoming_movies" : upcoming["results"],
-        "top_rated" : top_rated["results"]
+        "top_rated" : top_rated["results"],
+        "username": username,
+        "backdrop": backdrop,
     }
     return render_template("index_2.html", **context)
 
@@ -57,6 +72,11 @@ def home():
 def login():
     context = {}
     return render_template("login.html", **context)
+
+@app.route("/signup")
+def signup():
+    context = {}
+    return render_template("signup.html", **context)
 
 @app.route("/links")
 def links():
@@ -68,6 +88,33 @@ def about_us():
     context = {}
     return render_template("about_us.html", **context)
 
+@app.route("/create_user", methods=["POST"])
+def create_user():
+    context = {}
+    username = request.form.get("username")
+    password = request.form.get("password")
+    db_utils.add_user(username, username, password, 20)
+    return f"Thank you for registering, {username}!"
+
+@app.route("/logout")
+def logout():
+    context = {}
+    session.clear()
+    return redirect(url_for("home"))
+
+@app.route("/sign_in", methods=["POST"])
+def sign_in():
+    context = {}
+    username = request.form.get("username")
+    password = request.form.get("password")
+    if db_utils.validate_user_login(username, password):
+        session["user"] = username
+        return redirect(url_for('home'))
+    else:
+        context = {
+            "failure_message": "Login failed"
+        }
+        return render_template("login.html", **context)
 
 @app.route("/results", methods=["POST"])
 def results():
@@ -76,24 +123,14 @@ def results():
     api_key = config("API_KEY")
     api = TMDB(api_key)
 
-    context = {}
-    movie_id = None
-
-    # Main search page after searching by title
     if request.form.get("search"):
-        results = api.search(title=request.form.get("search"))
-        if results["total_results"] > 1:
-            # More than one result, therefore the user needs to select which film they meant
-            context = {"results": results["results"]}
-        elif results["total_results"] == 1:
-            # Only one result found, this is the movie to get recommendations for
-            movie_id = results["results"][0]["id"]
-        else: # This is for no match found
-            return render_template("not_found.html", search=request.form.get("search"))
-
-    # The else is for when you have multiple results and we ask the user to pick which movie they meant
+        # Main search page after searching by title
+        title = request.form.get("search")
+        movie_id, results = search_by_title(api, title)
     else:
+        # Searching on movie
         movie_id = request.form.get("movie_id")
+        title = ""
         results = api.get_movie_details(movie_id)
 
     if movie_id:
@@ -103,6 +140,10 @@ def results():
             "result": results["results"][0] if results.get("results") else results,
             "recommendations" : api.recommended_movie(movie_id)
         }
+    elif results.get("results"):
+        context = {"results": results["results"]}
+    else:
+        return render_template("not_found.html", search=title)
 
     return render_template("results.html", **context)
 
@@ -114,9 +155,23 @@ def chosen_movie(movie_id):
     context = {
         "movie": api.get_movie_details(movie_id),
         "reviews": api.reviews(movie_id),
-        "actors": api.actors(movie_id)
+        "actors": api.actors(movie_id),
+        "provider" : api.provider(movie_id),
+        "movie_videos" : api.movie_videos(movie_id),
+        "recommendations": api.recommended_movie(movie_id)
+
     }
     return render_template("chosen_movie.html", **context)
+
+
+@app.context_processor
+def chosen_movie_processor():
+    def actor_photo(person_id):
+        api_key = config("API_KEY")
+        api = TMDB(api_key)
+        images = api.person_image(person_id)
+        return images["profiles"][0] if images.get("profiles") and images["profiles"] else {}
+    return dict(actor_photo=actor_photo)
 
 
 @app.route("/actor/<int:person_id>")
@@ -128,6 +183,7 @@ def actor(person_id):
         "person": api.person_details(person_id),
     }
     return render_template("actor.html", **context)
+
 # telling the script to run if running this file and using the debugger to ensure it runs correctly and if not it will
 # tell us immediately
 
