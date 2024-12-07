@@ -4,6 +4,7 @@
 
 {% block page_css %}
     <link rel="stylesheet" href="/static/css/chosen_movie.css">
+    <link rel=”stylesheet” href=”https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css” />
     <style>
         :root{
             --tmdbDarkBlue: 3, 37, 65;
@@ -45,6 +46,14 @@
                     <div class="mt-4 {% if movie.vote_average > 4 %} text-success {% elif movie.vote_average < 3 %} text-danger {% else %} text-warning {% endif %}">
                         <p>The average rating for this movie is {{ movie.vote_average }}</p>
                     </div>
+
+                    <div>
+                        <form action="{{ url_for('results') }}" method="post">
+                            <input name="movie_id" type="hidden" value="{{ movie.id }}">
+                         <button type="submit" class="btn btn-outline-success recommended">More like this</button>
+                        </form>
+                    </div>
+
                     {% if provider.results.GB %}
                     <div class="position-absolute bottom-0 mb-3">
                         To watch this movie <br>
@@ -63,7 +72,8 @@
                 </div>
 
                 <div class="col text-end">
-                    <img class="image_border mb-5" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="400" height="550">
+                    <img class="image_border mb-5 poster" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="300" height="450"><br>
+                     <a class="recommended" href="">Add to favourites</a>
                 </div>
 
             </div>
@@ -104,7 +114,7 @@
                 {% endfor %}
 
             </div>
-                <div class="text-center">
+                <div class="text-center container-fluid me-2">
                     <h1>Trailer</h1><br>
                     <iframe src="https://www.youtube.com/embed/{{ movie_videos.results.0.key }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>

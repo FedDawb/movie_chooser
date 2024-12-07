@@ -120,6 +120,7 @@ def chosen_movie(movie_id):
         "actors": api.actors(movie_id),
         "provider" : api.provider(movie_id),
         "movie_videos" : api.movie_videos(movie_id),
+        "recommendations": api.recommended_movie(movie_id)
 
     }
     return render_template("chosen_movie.html", **context)
