@@ -299,11 +299,11 @@ main {
 /*--login page-->*/
 
 .login-container {
-    background: rgba(255, 255, 255, 0.8); /* White translucent background */
+    background: rgba(255, 255, 255, 0.8); /* translucent background */
     backdrop-filter: blur(10px); /*Frosted effect */
     padding: 20px 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Subtle boxing shadow */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* boxing shadow */
     max-width: 400px;
     width: 100%;
     position: relative;
@@ -348,6 +348,60 @@ main {
     background-color: #b71d29; /* Slightly darker red on hover */
 }
 
+/*Register page-similar styling to login page*/
+
+.register-container {
+    background: rgba(255, 255, 255, 0.8); /* translucent background */
+    backdrop-filter: blur(10px); /*Frosted effect */
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* boxing shadow */
+    max-width: 400px;
+    width: 100%;
+    position: relative;
+    left: 35%;
+    margin: 20px;
+
+}
+
+.register-container h2 {
+    color: #9b111e; /* Match the themecolor */
+    margin-bottom: 20px;
+}
+
+.register-container label {
+    display: block;
+    margin: 10px 0 5px;
+    color: #333;
+    font-weight: bold;
+}
+
+.register-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.register-container button {
+    background-color: #9b111e;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.register-container button:hover {
+    background-color: #b71d29; /* Slightly darker red on hover */
+}
+
+
+
 .login-icon {
     font-size: 1.5rem;
     color: white;
@@ -359,6 +413,8 @@ main {
     transform: scale(1.2);
     animation: shake 0.3s;
 }
+
+
 
 @keyframes shake {
     0%, 100% {
