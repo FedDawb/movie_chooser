@@ -98,12 +98,6 @@ class TMDB:
         url = f"movie/{movie_id}/watch/providers"
         return self.call_api(url)
 
-    def age_certifications(self, certification):
-        url = f"{certification}/movie/list"
-        response = requests.get(url)
-        certifications = response.json()["certifications"]["GB"]  # should return the certifications from the GB array
-        return self.call_api(url)
-
     def call_api(self, url: str) -> dict:
         """ This is the actual API call wth the api_key, need to import the API key from the protected//secret file
 
@@ -114,6 +108,4 @@ class TMDB:
         }
         result = requests.get(f"{self.base_url}{url}", headers=headers)
         return result.json()
-
-
 
