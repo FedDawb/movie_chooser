@@ -1,13 +1,10 @@
 import math
 from random import random
 from decouple import config
-from flask import Flask, render_template, request, session, redirect, url_for
-# importing packages:
-# importing flask class from flask package
-# render template for testing
+from flask import Flask, render_template, request, session, redirect, url_for, jsonify
 from TMDB_API import TMDB
 import hashlib
-from database import db_utils
+from database import db_utils, auth_utils
 from search import search_by_title
 
 #  This file will house Flask API code, manage routing and integrate with front-end
@@ -56,15 +53,12 @@ def home():
     top_rated = api.top_rated()
     username = session.get("user")
     
-    # Assuming you want to use the backdrop of the first popular movie
-    backdrop = popular["results"][0] if popular["results"] else None
-    
     context = {
         "popular_movies": popular["results"],
         "upcoming_movies" : upcoming["results"],
         "top_rated" : top_rated["results"],
         "username": username,
-        "backdrop": backdrop,
+        "backdrop": popular["results"][math.floor(random() * len(popular["results"]))],
     }
     return render_template("index_2.html", **context)
 
@@ -107,14 +101,44 @@ def sign_in():
     context = {}
     username = request.form.get("username")
     password = request.form.get("password")
-    if db_utils.validate_user_login(username, password):
+    user_id = auth_utils.validate_user_login(username, password)
+    if user_id:
         session["user"] = username
+        session["user_id"] = user_id
         return redirect(url_for('home'))
     else:
         context = {
             "failure_message": "Login failed"
         }
         return render_template("login.html", **context)
+
+@app.route("/toggle-favourites", methods=["POST"])
+def toggle_favourites():
+    """
+    When you click on "add to favourites" Check if the movie is in the favourite list
+    if not already in DB add as a favourite, if unhighlighting the "add to favourite" remove from DB
+    """
+    data = {
+        "is_favourite" : False
+    }
+    movie_id = request.json.get("movie_id")
+    if movie_id and session.get("user_id"):
+        user_id = session["user_id"]
+        # When you click on "add to favourites" Check if the movie is in the favourite list
+        # if not already in DB add as a favourite, if unhighlighting the "add to favourite" remove from DB
+        db_utils.save_favourite(user_id, movie_id)
+        # fake call
+        data["is_favourite"] = bool(round(random()))
+
+    return jsonify(data)
+
+@app.route("/saved_films")
+def saved_films():
+    context = {
+        # todo get the actual movies form the DB
+        "saved_movies" : []
+    }
+    return render_template("saved_films.html", **context)
 
 @app.route("/results", methods=["POST"])
 def results():
@@ -158,8 +182,9 @@ def chosen_movie(movie_id):
         "actors": api.actors(movie_id),
         "provider" : api.provider(movie_id),
         "movie_videos" : api.movie_videos(movie_id),
-        "recommendations": api.recommended_movie(movie_id)
-
+        "recommendations": api.recommended_movie(movie_id),
+        # todo Check if the movie is on the favourite list in DB
+        "is_favourite" : False
     }
     return render_template("chosen_movie.html", **context)
 

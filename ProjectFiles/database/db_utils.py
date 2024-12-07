@@ -2,7 +2,7 @@ import json
 import bcrypt
 from mysql.connector import connect, Error
 
-from db_config import DB_CONFIG  # Import database configuration securely
+from ProjectFiles.db_config import DB_CONFIG  # Import database configuration securely
 
 
 def create_connection():
