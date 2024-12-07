@@ -3,7 +3,6 @@ from random import random
 from decouple import config
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
 from TMDB_API import TMDB
-import hashlib
 from database import db_utils, auth_utils
 from search import search_by_title
 
@@ -133,19 +132,28 @@ def toggle_favourites():
     movie_id = request.json.get("movie_id")
     if movie_id and session.get("user_id"):
         user_id = session["user_id"]
-        # When you click on "add to favourites" Check if the movie is in the favourite list
-        # if not already in DB add as a favourite, if unhighlighting the "add to favourite" remove from DB
-        db_utils.save_favourite(user_id, movie_id)
-        # fake call
-        data["is_favourite"] = bool(round(random()))
+
+        if db_utils.is_favourite(user_id, movie_id):
+            db_utils.remove_from_favourites(user_id, movie_id)
+        else:
+            db_utils.save_favourite(user_id, movie_id)
+            data["is_favourite"] = True
 
     return jsonify(data)
 
 @app.route("/saved_films")
 def saved_films():
+    api_key = config("API_KEY")
+    api = TMDB(api_key)
+
+    favourites = db_utils.get_favourites(session["user_id"])
+
+    saved_movies = []
+    for movie_id in favourites:
+        saved_movies.append(api.get_movie_details(movie_id))
+
     context = {
-        # todo get the actual movies form the DB
-        "saved_movies" : []
+        "saved_movies" : saved_movies
     }
     return render_template("saved_films.html", **context)
 
@@ -185,6 +193,7 @@ def results():
 def chosen_movie(movie_id):
     api_key = config("API_KEY")
     api = TMDB(api_key)
+    user_id = session.get("user_id")
     context = {
         "movie": api.get_movie_details(movie_id),
         "reviews": api.reviews(movie_id),
@@ -192,8 +201,7 @@ def chosen_movie(movie_id):
         "provider" : api.provider(movie_id),
         "movie_videos" : api.movie_videos(movie_id),
         "recommendations": api.recommended_movie(movie_id),
-        # todo Check if the movie is on the favourite list in DB
-        "is_favourite" : False
+        "is_favourite" : db_utils.is_favourite(user_id, movie_id)
     }
     return render_template("chosen_movie.html", **context)
 
