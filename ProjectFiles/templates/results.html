@@ -18,14 +18,17 @@
     <div class="row container-sm container_stuff mx-4">
         {% for movie in results %}
 
-        <div class="col-5 mb-4">
+        <div class="col-5 mb-3">
             <form method="POST">
                 <input type="hidden" name="movie_id" value="{{ movie.id }}">
                 <img class="image_border" src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="150" height="200" onclick="submitForm(this)"><br>
             </form>
         </div>
         <div class="col-7">
-                <p class="mb-0 film_title">{{ movie.title }}</p>
+                <form method="POST">
+                    <p class="mb-0 film_title" onclick="submitForm(this)">{{ movie.title }}</p>
+                <input type="hidden" name="movie_id" value="{{ movie.id }}">
+                </form>
                 <div class="">
                     <p> {{ movie.overview }}</p>
                 </div>
@@ -40,10 +43,13 @@
 
         <div class="row container-sm container_stuff mb-4">
             <div class="col-5">
+                <a class="film_title" href="{{ url_for('chosen_movie', movie_id=result.id) }}">
                  <img class="image_border" src="https://image.tmdb.org/t/p/original{{ result.poster_path }}" width="150" height="200"><br>
+                </a>
             </div>
             <div class="col-7">
-                <p class="film_title">{{ result.title }}</p>
+                <p class="">
+                    <a class="film_title" href="{{ url_for('chosen_movie', movie_id=result.id) }}">{{ result.title }}</a></p>
                 <p> {{ result.overview }}</p>
             </div>
         <div>
