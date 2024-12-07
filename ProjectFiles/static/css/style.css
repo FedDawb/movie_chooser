@@ -401,6 +401,66 @@ main {
 }
 
 
+/*about us section*/
+
+.about_us{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+}
+
+.skill_section{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.languages {
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  
+  .language {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.2rem;
+  }
+  
+  
+  .language i {
+    margin-top: 10px;
+    gap: 20px;
+  }
+  
+  .language-list {
+    list-style-type:none;
+    padding: 0;
+  }
+  
+  .language-list li {
+    margin-bottom: 10px;
+    font-size: 1rem;
+  }
+  
+  .team-list {
+    list-style-type:none;
+    padding: 0;
+  }
+  
+  .team-list li {
+    margin-bottom: 10px;
+    font-size: 1rem;
+  }
+
+
 
 .login-icon {
     font-size: 1.5rem;
@@ -413,6 +473,8 @@ main {
     transform: scale(1.2);
     animation: shake 0.3s;
 }
+
+
 
 
 
