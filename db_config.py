@@ -2,7 +2,7 @@
 
 DB_CONFIG = {
     "host": "localhost",
-    "user": "your_user",
-    "password": "your_password",
+    "user": "root",
+    "password": "password",
     "database": "db_movie_night"
 }

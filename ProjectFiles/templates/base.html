@@ -75,11 +75,17 @@
                 <h1 class="display-3 text-white ">MOVIE MATCHER</h1>
             </div>
             <ul class="navbar-nav ms-auto">
+                {% if username %}
+                <li>{{ username }}</li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('login') }}">
                         <i class="fa-regular fa-circle-user fa-shake login-icon"></i>
                     </a>
                 </li>
+                {% if username %}
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% endif %}
             </ul>
         </div>
 

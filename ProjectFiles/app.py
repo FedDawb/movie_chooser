@@ -1,17 +1,14 @@
 import math
 from random import random
 from decouple import config
-from flask import Flask, render_template, request, jsonify, flash, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for
 # importing packages:
 # importing flask class from flask package
 # render template for testing
 from TMDB_API import TMDB
-
 import hashlib
-from werkzeug.security import generate_password_hash
-
+from database import db_utils
 from search import search_by_title
-
 
 #  This file will house Flask API code, manage routing and integrate with front-end
 """
@@ -35,6 +32,9 @@ route ideas
 # asking flask to use this file to run the request server side
 app = Flask(__name__)
 
+app.secret_key = 'my_secret'
+#app.config['SESSION_PERMENANT'] = False # Delete cookie when browser closes
+
 # app routing:
 # the ROOT ADDRESS for our application is "/" our first function "home()" will manage the logic for the landing page
 # using the app route decorator "app.route" binds the function and its logic to this root url
@@ -46,63 +46,37 @@ app = Flask(__name__)
 #     context = {}
 #     return render_template("base.html", **context)
 
-@app.route("/") 
+@app.route("/")
 def home():
     api_key = config("API_KEY")
     api = TMDB(api_key)
+
     popular = api.popular_films()
     upcoming = api.upcoming_films()
     top_rated = api.top_rated()
-
+    username = session.get("user")
+    
+    # Assuming you want to use the backdrop of the first popular movie
+    backdrop = popular["results"][0] if popular["results"] else None
+    
     context = {
         "popular_movies": popular["results"],
         "upcoming_movies" : upcoming["results"],
         "top_rated" : top_rated["results"],
-        "backdrop" : popular["results"][math.floor(random() * len(popular["results"]))]
+        "username": username,
+        "backdrop": backdrop,
     }
     return render_template("index_2.html", **context)
 
-@app.route("/login", methods=[ 'GET', 'POST' ])
+@app.route("/login")
 def login():
-    if request.method == 'POST':
-        # Check if the user exists in the database
-        # 
-        username = request.form.get('username')
-        password = request.form.get('password')
-        # Check password hash and compare with the one in the database
-        #
-        flash('Logged in successfully!', 'success')
-        return redirect(url_for('home'))
-   
-    return render_template('login.html')
+    context = {}
+    return render_template("login.html", **context)
 
-@app.route("/register", methods=[ 'GET', 'POST' ])
-def sign_up():
-    if request.method == 'POST' :
-        email = request. form. get ( 'email')
-        firstName = request.form.get('firstName')
-        password1 = request.form.get('password1')
-        password2 = request.form.get('password2')
-    
-        if len(email) < 1:
-            flash( 'Email must be greater than 0 characters.', category='error')
-        elif len(firstName) < 1:
-            flash( 'First name must be greater than 0 characters.', category='error')
-        elif password1 != password2:
-            flash( 'Passwords don\'t match.', category='error')
-        elif len(password1) < 8:
-            flash( 'Password must be at least 8 characters.', category='error')
-        else:
-            flash( 'Account created!', category='success')
-
-        # Hash the password
-            hashed_password = generate_password_hash(password1, method='sha256')
-            
-        # Save the user to your database here
-            flash('Account created successfully!', 'success')
-            return redirect(url_for("/login"))  # Redirect to login page after successful registration
-    
-    return render_template("register.html")
+@app.route("/signup")
+def signup():
+    context = {}
+    return render_template("signup.html", **context)
 
 @app.route("/links")
 def links():
@@ -113,6 +87,34 @@ def links():
 def about_us():
     context = {}
     return render_template("about_us.html", **context)
+
+@app.route("/create_user", methods=["POST"])
+def create_user():
+    context = {}
+    username = request.form.get("username")
+    password = request.form.get("password")
+    db_utils.add_user(username, username, password, 20)
+    return f"Thank you for registering, {username}!"
+
+@app.route("/logout")
+def logout():
+    context = {}
+    session.clear()
+    return redirect(url_for("home"))
+
+@app.route("/sign_in", methods=["POST"])
+def sign_in():
+    context = {}
+    username = request.form.get("username")
+    password = request.form.get("password")
+    if db_utils.validate_user_login(username, password):
+        session["user"] = username
+        return redirect(url_for('home'))
+    else:
+        context = {
+            "failure_message": "Login failed"
+        }
+        return render_template("login.html", **context)
 
 @app.route("/results", methods=["POST"])
 def results():

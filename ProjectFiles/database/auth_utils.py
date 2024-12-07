@@ -13,7 +13,8 @@ def create_connection():
         print(f"Error: '{e}' occurred while connecting to the database.")
         return None
 
-def validate_user_login(email, password):
+# Moved to db_utils.py
+'''def validate_user_login(email, password):
     """Validate a user's login credentials."""
     connection = create_connection()
     if connection:
@@ -36,4 +37,4 @@ def validate_user_login(email, password):
             return False
         finally:
             cursor.close()
-            connection.close()
+            connection.close()'''
