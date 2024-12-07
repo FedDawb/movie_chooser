@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Saved films{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/results.css">
+{% endblock %}
+
+{% block content %}
+
+<!-- Movie Chooser Title Section -->
+<div class="container py-5">
+</div>
+
+
+<h2 class="mb-5 heading-style"> Your Saved Films </h2>
+
+    <div class="row container-sm container_stuff">
+        {% for movie in saved_movies %}
+        {% include "result_block.html" %}
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+{% block page_js %}
+
+{% endblock %}
