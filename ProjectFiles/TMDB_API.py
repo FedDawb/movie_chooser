@@ -115,10 +115,6 @@ class TMDB:
         }
         result = requests.get(f"{self.base_url}{url}", headers=headers)
 
-        if result.status_code == 200:
-            return result.json()
-
-        result.raise_for_status()
 
     def age_certifications(self, certification):
         url = f"{self.base_url}/certification/{certification}/movie/list"
