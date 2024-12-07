@@ -74,7 +74,9 @@
                 <div class="col-5 text-end">
                     <img class="image_border mb-2 poster"
                          src="https://image.tmdb.org/t/p/original{{ movie.poster_path }}" width="300" height="450"><br>
-                    <a class="recommended favourite_button" href="">Add to favourites</a>
+                    <span class="recommended favourite_button mb-2" onclick="AddToFavourites({{ movie.id }})">
+                        <i id="Favourite" class="fa fa-star {% if is_favourite %}text-warning{% endif %}"></i> Add to favourites
+                    </span>
                 </div>
 
             </div>
@@ -86,7 +88,6 @@
 
 <div class="container mt-5">
     <div class="row">
-
 
         <div class="col-6 mb-5 review_element">
             <h2 class="my-4">Reviews</h2>
@@ -126,4 +127,31 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block page_js %}
+<script>
+    const favourite = document.getElementById("Favourite");
+
+    function AddToFavourites(movie_id) {
+        fetch(
+            "{{ url_for('toggle_favourites') }}",
+            {
+                method: "post",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({movie_id:movie_id}),
+            }
+        ).then(response => response.json()
+        ).then(data => {
+            if (data.is_favourite) {
+                favourite.classList.add("text-warning")
+            } else {
+                favourite.classList.remove("text-warning")
+            }
+        })
+    }
+</script>
 {% endblock %}

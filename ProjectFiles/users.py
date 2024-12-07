@@ -1,7 +1,5 @@
 import re
 import bcrypt
-from database import db_utils
-# import re
 
 # importing BCrypt library to hash passwords and RegEx to validate user emails
 # This file will be used to define our User class and authentication

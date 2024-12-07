@@ -1,12 +1,8 @@
 import json
 import bcrypt
 from mysql.connector import connect, Error
-# from db_config import DB_CONFIG
 
-
-# Next step:
-# Database configuration details from .env file
-
+from ProjectFiles.db_config import DB_CONFIG  # Import database configuration securely
 
 
 def create_connection():
@@ -14,16 +10,12 @@ def create_connection():
     Create and return a database connection.
     """
     try:
-        connection = connect(
-            host="localhost",        # Replace with your MySQL host
-            user="root",        # Replace with your MySQL username
-            password="toor", # Replace with your MySQL password
-            database="db_movie_night" # Replace with your database name
-        )
+        connection = connect(**DB_CONFIG)
         return connection
     except Error as e:
         print(f"Error: '{e}' occurred while connecting to the database.")
         return None
+
 
 # User-related functions
 def add_user(email, username, password, age, preferences=None):
@@ -33,14 +25,20 @@ def add_user(email, username, password, age, preferences=None):
     connection = create_connection()
     if connection:
         try:
-            hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+            hashed_password = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
             cursor = connection.cursor()
             cursor.execute(
                 """
                 INSERT INTO Users (email, username, password_hash, age, preferences) 
                 VALUES (%s, %s, %s, %s, %s)
                 """,
-                (email, username, hashed_password.decode('utf-8'), age, json.dumps(preferences or {}))
+                (
+                    email,
+                    username,
+                    hashed_password.decode("utf-8"),
+                    age,
+                    json.dumps(preferences or {}),
+                ),
             )
             connection.commit()
             print(f"User '{username}' added successfully.")
@@ -50,6 +48,7 @@ def add_user(email, username, password, age, preferences=None):
             cursor.close()
             connection.close()
 
+
 def get_user_by_email(email):
     """
     Retrieve a user by their email.
@@ -58,10 +57,7 @@ def get_user_by_email(email):
     if connection:
         try:
             cursor = connection.cursor(dictionary=True)
-            cursor.execute(
-                "SELECT * FROM Users WHERE email = %s",
-                (email,)
-            )
+            cursor.execute("SELECT * FROM Users WHERE email = %s", (email,))
             user = cursor.fetchone()
             return user
         except Error as e:
@@ -70,6 +66,7 @@ def get_user_by_email(email):
         finally:
             cursor.close()
             connection.close()
+
 
 def update_user_preferences(user_id, preferences):
     """
@@ -85,7 +82,7 @@ def update_user_preferences(user_id, preferences):
                 SET preferences = %s
                 WHERE user_id = %s
                 """,
-                (json.dumps(preferences), user_id)
+                (json.dumps(preferences), user_id),
             )
             connection.commit()
             print(f"Preferences updated for user ID {user_id}.")
@@ -95,10 +92,48 @@ def update_user_preferences(user_id, preferences):
             cursor.close()
             connection.close()
 
+
 # Movie-related functions
-def add_movie(user_id, movie_id, title):
+def save_favourite(user_id, api_id):
     """
-    Save a movie to a user's favorites.
+    Save a movie or show as a favorite for a user.
+    """
+    connection = create_connection()
+    if connection:
+        try:
+            cursor = connection.cursor(dictionary=True)
+
+            # Check if the movie/show is already a favorite
+            cursor.execute(
+                """
+                SELECT * FROM Favourites 
+                WHERE user_id = %s AND api_id = %s
+                """,
+                (user_id, api_id),
+            )
+            if cursor.fetchone():
+                print(f"API ID {api_id} is already a favorite for user ID {user_id}.")
+            else:
+                # Add to favorites
+                cursor.execute(
+                    """
+                    INSERT INTO Favourites (user_id, api_id)
+                    VALUES (%s, %s)
+                    """,
+                    (user_id, api_id),
+                )
+                connection.commit()
+                print(f"API ID {api_id} saved as a favorite for user ID {user_id}.")
+        except Error as e:
+            print(f"Error: '{e}' occurred while saving a favorite.")
+        finally:
+            cursor.close()
+            connection.close()
+
+
+def remove_from_favourites(user_id, api_id):
+    """
+    Remove a movie or show from a user's favorites.
     """
     connection = create_connection()
     if connection:
@@ -106,20 +141,72 @@ def add_movie(user_id, movie_id, title):
             cursor = connection.cursor()
             cursor.execute(
                 """
-                INSERT INTO Favourites (user_id, movie_id, title)
-                VALUES (%s, %s, %s)
+                DELETE FROM Favourites 
+                WHERE user_id = %s AND api_id = %s
                 """,
-                (user_id, movie_id, title)
+                (user_id, api_id),
             )
             connection.commit()
-            print(f"Movie '{title}' added to user {user_id}'s favorites.")
+            print(f"API ID {api_id} removed from user ID {user_id}'s favorites.")
         except Error as e:
-            print(f"Error: '{e}' occurred while adding a movie.")
+            print(f"Error: '{e}' occurred while removing a favorite.")
         finally:
             cursor.close()
             connection.close()
 
-def block_item(user_id, movie_id):
+
+def is_favourite(user_id, api_id):
+    """
+    Check if a movie or show is a favorite for a user.
+    """
+    connection = create_connection()
+    if connection:
+        try:
+            cursor = connection.cursor(dictionary=True)
+            cursor.execute(
+                """
+                SELECT * FROM Favourites 
+                WHERE user_id = %s AND api_id = %s
+                """,
+                (user_id, api_id),
+            )
+            result = cursor.fetchone()
+            return result is not None  # Return True if found, else False
+        except Error as e:
+            print(f"Error: '{e}' occurred while checking if item is a favorite.")
+            return False
+        finally:
+            cursor.close()
+            connection.close()
+
+
+def get_favourites(user_id):
+    """
+    Retrieve all favorite movies or shows for a user.
+    """
+    connection = create_connection()
+    if connection:
+        try:
+            cursor = connection.cursor(dictionary=True)
+            cursor.execute(
+                """
+                SELECT api_id 
+                FROM Favourites 
+                WHERE user_id = %s
+                """,
+                (user_id,),
+            )
+            favourites = cursor.fetchall()
+            return [favourite["api_id"] for favourite in favourites]
+        except Error as e:
+            print(f"Error: '{e}' occurred while retrieving favorites.")
+            return []
+        finally:
+            cursor.close()
+            connection.close()
+
+
+def block_item(user_id, api_id):
     """
     Block a movie or show for a user.
     """
@@ -129,54 +216,19 @@ def block_item(user_id, movie_id):
             cursor = connection.cursor()
             cursor.execute(
                 """
-                INSERT INTO Blocked_Items (user_id, movie_id)
+                INSERT INTO Blocked_Items (user_id, api_id)
                 VALUES (%s, %s)
                 """,
-                (user_id, movie_id)
+                (user_id, api_id),
             )
             connection.commit()
-            print(f"Movie ID {movie_id} blocked for user ID {user_id}.")
+            print(f"API ID {api_id} blocked for user ID {user_id}.")
         except Error as e:
             print(f"Error: '{e}' occurred while blocking an item.")
         finally:
             cursor.close()
             connection.close()
 
-def save_favourite(user_id, movie_id):
-    """
-    Save a movie or show as a favorite for a user.
-    """
-    connection = create_connection()
-    if connection:
-        try:
-            cursor = connection.cursor(dictionary=True)
-
-            # Check if the movie is already a favorite
-            cursor.execute(
-                """
-                SELECT * FROM Favourites 
-                WHERE user_id = %s AND movie_id = %s
-                """,
-                (user_id, movie_id)
-            )
-            if cursor.fetchone():
-                print(f"Movie ID {movie_id} is already a favorite for user ID {user_id}.")
-            else:
-                # Add to favorites
-                cursor.execute(
-                    """
-                    INSERT INTO Favourites (user_id, movie_id)
-                    VALUES (%s, %s)
-                    """,
-                    (user_id, movie_id)
-                )
-                connection.commit()
-                print(f"Movie ID {movie_id} saved as a favorite for user ID {user_id}.")
-        except Error as e:
-            print(f"Error: '{e}' occurred while saving a favorite.")
-        finally:
-            cursor.close()
-            connection.close()
 
 def delete_user(user_id):
     """
@@ -187,38 +239,12 @@ def delete_user(user_id):
         try:
             cursor = connection.cursor()
             cursor.execute(
-                "DELETE FROM Users WHERE user_id = %s",
-                (user_id,)
+                "DELETE FROM Users WHERE user_id = %s", (user_id,)
             )
             connection.commit()
             print(f"User ID {user_id} deleted successfully.")
         except Error as e:
             print(f"Error: '{e}' occurred while deleting a user.")
-        finally:
-            cursor.close()
-            connection.close()
-
-def validate_user_login(email, password):
-    """Validate a user's login credentials."""
-    connection = create_connection()
-    if connection:
-        try:
-            cursor = connection.cursor(dictionary=True)
-            cursor.execute(
-                "SELECT password_hash FROM Users WHERE email = %s",
-                (email,)
-            )
-            user = cursor.fetchone()
-
-            if user and bcrypt.checkpw(password.encode('utf-8'), user["password_hash"].encode('utf-8')):
-                print("Login successful!")
-                return True
-            else:
-                print("Invalid email or password.")
-                return False
-        except Error as e:
-            print(f"Error: '{e}' occurred during login validation.")
-            return False
         finally:
             cursor.close()
             connection.close()

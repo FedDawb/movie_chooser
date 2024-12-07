@@ -98,6 +98,7 @@ class TMDB:
         url = f"movie/{movie_id}/watch/providers"
         return self.call_api(url)
 
+    # api-certifications
     # def age_certifications(self, certification):
     #     url = f"{certification}/movie/list"
     #     response = requests.get(url)
@@ -115,6 +116,7 @@ class TMDB:
         result = requests.get(f"{self.base_url}{url}", headers=headers)
         return result.json()
 
+    api-certifications
     def age_certifications(self, certification):
         url = f"{self.base_url}/certification/{certification}/movie/list"
         response = requests.get(url, params={"api_key": self.api_key})
@@ -124,3 +126,4 @@ class TMDB:
             return certifications
         else:
             response.raise_for_status()
+
