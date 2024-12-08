@@ -29,7 +29,6 @@ The ROOT ADDRESS for our application is "/" our first function "home()" will man
 using the app route decorator "app.route" binds the function and its logic to this root url
 running on port address http://127.0.0.1:5000/'''
 
-
 # Hashed out as revealing database connection info is a security risk
 '''@app.route('/debug') # Debugging route - testing database connection
 def debug():
