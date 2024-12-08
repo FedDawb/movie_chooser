@@ -5,7 +5,8 @@ from random import random
 from decouple import config
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
 from TMDB_API import TMDB
-# from database import db_utils, auth_utils
+from database import db_utils
+from database import auth_utils
 from search import search_by_title
 from flask import Flask
 from db_config import DB_CONFIG
@@ -16,7 +17,7 @@ print(f"Connecting to database on host {DB_CONFIG['host']}, port {DB_CONFIG['por
 print(f"Using user {DB_CONFIG['user']} and password {DB_CONFIG['password']}")
 
 
-# asking flask to use this file to run the request server side
+# Asking flask to use this file to run the request server side
 app = Flask(__name__)
 
 app.secret_key = 'my_secret'
@@ -32,6 +33,16 @@ app.secret_key = 'my_secret'
 # def home():
 #     context = {}
 #     return render_template("base.html", **context)
+
+@app.route('/debug') # Debugging route - testing database connection
+def debug():
+    return {
+        "host": DB_CONFIG['host'],
+        "user": DB_CONFIG['user'],
+        "password": DB_CONFIG['password'],
+        "database": DB_CONFIG['database'],
+        "port": DB_CONFIG['port']
+    }
 
 @app.route("/")
 def home():
@@ -220,5 +231,29 @@ def actor(person_id):
 # telling the script to run if running this file and using the debugger to ensure it runs correctly and if not it will
 # tell us immediately
 
+import mysql.connector
+from mysql.connector import Error
+
+# Route to test database connection
+@app.route('/testdb')
+def test_db():
+    try:
+        connection = mysql.connector.connect(
+            host=DB_CONFIG['host'],
+            user=DB_CONFIG['user'],
+            password=DB_CONFIG['password'],
+            database=DB_CONFIG['database'],
+            port=DB_CONFIG['port']
+        )
+        if connection.is_connected():
+            db_info = connection.get_server_info()
+            return f"Successfully connected to the database. MySQL server version: {db_info}"
+    except Error as e:
+        return f"Error connecting to database: {e}"
+    finally:
+        if 'connection' in locals() and connection.is_connected():
+            connection.close()
+
+# Run the app
 if __name__ == "__main__":
     app.run(debug=True)
