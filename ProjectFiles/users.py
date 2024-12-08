@@ -64,7 +64,7 @@ class Under18Users(Users):
         if age >= 18:
             raise ValueError  # defining that a user with an age 18 or over does not belong in this Users subclass
         super().__init__(user_id, email, username, age, password, api)
-        self.kids_certifications = {"U", "PG", "12A", "15"}
+        self.kids_certifications = ["U", "PG", "12A", "15"]
 
     def filter_movies(self, movies):
         filtered_movies = [
