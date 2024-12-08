@@ -65,7 +65,7 @@ class Under18Users(Users):
     def filter_movies(self, movies):
         filtered_movies = [
             movie for movie in movies
-            if movie["certification"] in self.kids_certifications
+            if movie.get("certification") in self.kids_certifications
         ]
         return filtered_movies
     # returns the movies filtered based on <18 users attributes being satisfied
