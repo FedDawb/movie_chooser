@@ -41,7 +41,6 @@ def debug():
         "port": DB_CONFIG['port']
     }'''
 
-
 @app.route("/")
 def home():
     api_key = config("API_KEY")
@@ -52,7 +51,7 @@ def home():
     top_rated = api.top_rated()
     username = session.get("user")
     
-    print("Popular films response:", popular)  # Debugging line
+    # print("Popular films response:", popular)  # Debugging line
     
     # Check if popular is not None
     if popular is None:
@@ -108,7 +107,9 @@ def create_user():
     username = request.form.get("username")
     password = request.form.get("password")
     db_utils.add_user(username, username, password, 20)
-    return f"Thank you for registering, {username}!"
+    return render_template("signup_welcome.html", username=username)
+
+
 """
     def age_certifications(self, certification):
         url = f"{certification}/movie/list"
