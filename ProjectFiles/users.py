@@ -42,7 +42,7 @@ class Users:
         return False  # the user entered a password that doesn't match the hashed one
 
     def check_email(self, email):
-        valid_email = r"\b[A-Za-z0-9._%+-] +@[A-Z|a-z]{2,}\b"
+        valid_email = r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
         return re.match(valid_email, email)
 
     def filter_movies(self, movies):
@@ -50,10 +50,6 @@ class Users:
 
 
 # creating an 18+ and <18 user subclass to filter what films are available to them based on their age at sign up
-# def check_email(email):
-#     valid_email = r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
-#     return re.match(valid_email, email)
-
 
 # telling the subclasses that this should be implemented and raise an error if not
 
