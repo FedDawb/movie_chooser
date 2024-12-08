@@ -113,21 +113,27 @@ class TMDB:
             "accept": "application/json",
             "Authorization": f"Bearer {self.api_key}"
         }
-        result = requests.get(f"{self.base_url}{url}", headers=headers)
+        response = requests.get(f"{self.base_url}{url}", headers=headers)
+        if response.status_code == 200:
+            return response.json()
+        response.raise_for_status()
 
     # updating-age-certification-filtering
-    def age_certifications(self, country="GB"):  # creating age certification method to return the GB array
-        url = f"{self.base_url}/certification/certification/movie/list"
-
-        if result.status_code == 200:
-            return result.json()
-        result.raise_for_status()
+        response = requests.get(url, params={"api_key": self.api_key})
+        if response.status_code == 200:
+            country = "GB"  # Define the country variable
+            certifications = response.json().get("certifications", {}).get(country, [])
+            gb_certifications = {cert.get("certification") for cert in certifications}
+            return gb_certifications
+        else:
+            response.raise_for_status()  # raising exception if the request fails
 
     def age_certifications(self, certification):
         url = f"{self.base_url}/certification/{certification}/movie/list"
         response = requests.get(url, params={"api_key": self.api_key})
 
         if response.status_code == 200:
+            country = "GB"
             certifications = response.json().get("certifications", {}).get(country, [])
             gb_certifications = {cert.get("certification") for cert in certifications}
             return gb_certifications

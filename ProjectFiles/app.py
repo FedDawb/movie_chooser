@@ -52,10 +52,8 @@ def home():
     top_rated = api.top_rated()
     username = session.get("user")
     
-<<<<<<< Updated upstream
     print("Popular films response:", popular)  # Debugging line
     
-=======
     # Check if popular is not None
     if popular is None:
         popular_results = []  # Set to an empty list if no results
@@ -74,7 +72,6 @@ def home():
     else:
         top_rated_results = top_rated.get("results", [])
 
->>>>>>> Stashed changes
     context = {
         "popular_movies": popular_results,
         "upcoming_movies": upcoming_results,
