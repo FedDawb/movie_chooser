@@ -1,12 +1,19 @@
+#  This file will house Flask API code, manage routing and integrate with front-end
+
 import math
 from random import random
 from decouple import config
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
 from TMDB_API import TMDB
-from database import db_utils, auth_utils
+# from database import db_utils, auth_utils
 from search import search_by_title
+from flask import Flask
+from db_config import DB_CONFIG
 
-#  This file will house Flask API code, manage routing and integrate with front-end
+
+# Print database connection info for debugging
+print(f"Connecting to database on host {DB_CONFIG['host']}, port {DB_CONFIG['port']}")
+print(f"Using user {DB_CONFIG['user']} and password {DB_CONFIG['password']}")
 
 
 # asking flask to use this file to run the request server side
