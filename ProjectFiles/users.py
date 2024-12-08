@@ -16,23 +16,25 @@ import bcrypt
 
 
 class Users:
-    def __init__(self, user_id, email, username, age, password):
+    def __init__(self, user_id, email, username, age, password, api):
         self.user_id = user_id
         self.email = email
         self.username = username
         self.age = age
         self.password = self.hash_password(password)  # bcrypt.hashpw(password.encode("UTF-8"), bcrypt.gensalt())
+        self.api = api
         self.is_authenticated = False
 
-# writing a function to hash and salt the users entered password function:
+    # writing a function to hash and salt the users entered password function:
     def hash_password(self, password):
         return bcrypt.hashpw(password.encode("UTF-8"), bcrypt.gensalt())
-# check_password method updated because the previous code was trying to match between the hashed what the user entered:
+
+    # check_password method updated because the previous code was trying to match between the hashed what the user entered:
 
     def check_password(self, password):
         return bcrypt.checkpw(password.encode("UTF-8"), self.password)
 
-# enabling the user to login once their password has been checked and the password matches between input and hashed:
+    # enabling the user to login once their password has been checked and the password matches between input and hashed:
     def login(self, password):
         if self.check_password(password):
             self.is_authenticated = True  # then the user has been authenticated
@@ -44,24 +46,29 @@ class Users:
         valid_email = r"\b[A-Za-z0-9._%+-] +@[A-Z|a-z]{2,}\b"
         return re.match(valid_email, email)
 
-    # creating an 18+ and <18 user subclass to filter what films are available to them based on their age at sign up
+
+# creating an 18+ and <18 user subclass to filter what films are available to them based on their age at sign up
 
 
-class Over18Users(Users):
-    def can_watch_film(self, certification):
-        return True
+# telling the subclasses that this should be implemented and raise an error if not
+
+def filter_movies(self, movies):
+    raise NotImplementedError
 
 
 class Under18Users(Users):
-    def __init__(self, user_id, email, username, age, password):
-        super().__init__(user_id, email, username, age, password)
+    def __init__(self, user_id, email, username, age, password, api):
+        if age >= 18:
+            raise ValueError  # defining that a user with an age 18 or over does not belong in this Users subclass
+        super().__init__(user_id, email, username, age, password, api)
+        self.kids_certifications = {"U", "PG", "12A", "15"}
 
-    def can_watch_film(self, certification):
-        return certification != "18"  # ensures that only users who are 18 can have films rated 18 returned
-
-# age certification rewrite:
-
-
+    def filter_movies(self, movies):
+        return [
+            movie for movie in movies
+            if movie.get("certification") in self.kids_certifications
+        ]
+    # returns the movies filtered based on <18 users attributes being satisfied
 
 # starting to create the function to filter the films shown to the user based on if the user is 18+ or <18
 # def filter_by_certification(user, movies):
@@ -76,3 +83,13 @@ class Under18Users(Users):
 #     return
 
 
+class Over18Users(Users):
+    def __init__(self, user_id, email, username, age, password, api):
+        if age < 18:
+            raise ValueError  # defining that a user with an age under 18 does not belong in this Users subclass
+        super().__init__(user_id, email, username, age, password, api)
+
+    def filter_movies(self, movies):
+        return movies
+
+        # returns all the results to adult users, no filtering applies
