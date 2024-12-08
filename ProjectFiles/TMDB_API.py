@@ -115,8 +115,16 @@ class TMDB:
         }
         result = requests.get(f"{self.base_url}{url}", headers=headers)
 
+    # updating-age-certification-filtering
     def age_certifications(self, country="GB"):  # creating age certification method to return the GB array
         url = f"{self.base_url}/certification/certification/movie/list"
+
+        if result.status_code == 200:
+            return result.json()
+        result.raise_for_status()
+
+    def age_certifications(self, certification):
+        url = f"{self.base_url}/certification/{certification}/movie/list"
         response = requests.get(url, params={"api_key": self.api_key})
 
         if response.status_code == 200:
@@ -125,4 +133,5 @@ class TMDB:
             return gb_certifications
         else:
             response.raise_for_status()  # raising exception if the request fails
+
 

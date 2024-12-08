@@ -3,6 +3,7 @@ Flask
 python-decouple
 bcrypt
 mysql-connector-python
+authlib
 
 #https://developer.themoviedb.org/docs/getting-started Use this website to get your API key to put in the .env file.
 #Do not commit the .env file with an API key in it!

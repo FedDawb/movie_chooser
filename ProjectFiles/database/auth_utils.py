@@ -1,8 +1,7 @@
 import bcrypt
 import mysql.connector
 from mysql.connector import Error
-from ProjectFiles.db_config import DB_CONFIG
-
+from db_config import DB_CONFIG
 
 def create_connection():
     """Establish a database connection."""
