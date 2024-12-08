@@ -8,8 +8,9 @@ from TMDB_API import TMDB
 from database import db_utils
 from database import auth_utils
 from search import search_by_title
-from flask import Flask
 from db_config import DB_CONFIG
+import mysql.connector
+from mysql.connector import Error
 
 
 # Print database connection info for debugging
@@ -23,18 +24,14 @@ app = Flask(__name__)
 app.secret_key = 'my_secret'
 # app.config['SESSION_PERMANENT'] = False # Delete cookie when browser closes
 
-# app routing:
-# the ROOT ADDRESS for our application is "/" our first function "home()" will manage the logic for the landing page
-# using the app route decorator "app.route" binds the function and its logic to this root url
-# running on port address http://127.0.0.1:5000/
+'''app routing:
+The ROOT ADDRESS for our application is "/" our first function "home()" will manage the logic for the landing page
+using the app route decorator "app.route" binds the function and its logic to this root url
+running on port address http://127.0.0.1:5000/'''
 
 
-# @app.route("/")
-# def home():
-#     context = {}
-#     return render_template("base.html", **context)
-
-@app.route('/debug') # Debugging route - testing database connection
+# Hashed out as revealing database connection info is a security risk
+'''@app.route('/debug') # Debugging route - testing database connection
 def debug():
     return {
         "host": DB_CONFIG['host'],
@@ -42,7 +39,8 @@ def debug():
         "password": DB_CONFIG['password'],
         "database": DB_CONFIG['database'],
         "port": DB_CONFIG['port']
-    }
+    }'''
+
 
 @app.route("/")
 def home():
@@ -54,16 +52,38 @@ def home():
     top_rated = api.top_rated()
     username = session.get("user")
     
+<<<<<<< Updated upstream
     print("Popular films response:", popular)  # Debugging line
     
+=======
+    # Check if popular is not None
+    if popular is None:
+        popular_results = []  # Set to an empty list if no results
+    else:
+        popular_results = popular.get("results", [])  # Safely get results
+
+    # Check if upcoming is not None
+    if upcoming is None:
+        upcoming_results = []  # Set to an empty list if no results
+    else:
+        upcoming_results = upcoming.get("results", [])
+
+    # Check if top_rated is not None
+    if top_rated is None:
+        top_rated_results = []  # Set to an empty list if no results
+    else:
+        top_rated_results = top_rated.get("results", [])
+
+>>>>>>> Stashed changes
     context = {
-        "popular_movies": popular["results"],
-        "upcoming_movies" : upcoming["results"],
-        "top_rated" : top_rated["results"],
+        "popular_movies": popular_results,
+        "upcoming_movies": upcoming_results,
+        "top_rated": top_rated_results,
         "username": username,
-        "backdrop": popular["results"][math.floor(random() * len(popular["results"]))],
+        "backdrop": popular_results[math.floor(random() * len(popular_results))] if popular_results else None,
     }
     return render_template("index_2.html", **context)
+
 
 @app.route("/login")
 def login():
@@ -232,9 +252,6 @@ def actor(person_id):
 
 # telling the script to run if running this file and using the debugger to ensure it runs correctly and if not it will
 # tell us immediately
-
-import mysql.connector
-from mysql.connector import Error
 
 # Route to test database connection
 @app.route('/testdb')
