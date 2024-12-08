@@ -1,6 +1,6 @@
 import unittest
-from ProjectFiles.users import Users
-import re
+from users import Users
+# import re
 
 # using this file to test and check if the Users class works correctly
 # creating TestingUsersCls with checks for users being set up
