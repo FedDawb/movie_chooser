@@ -79,11 +79,7 @@ class Under18Users(Users):
 #     for film in films:
 #         certification = film.get("certification")
 #         if user.can_watch_film(certification):
-#             filtered_films.
-
-# def __str__(self, password, hashpw):
-#     print("We take our users privacy very seriously!")
-#     return
+#          u   filtered_films.
 
 
 class Over18Users(Users):
