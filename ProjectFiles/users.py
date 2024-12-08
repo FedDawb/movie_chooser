@@ -29,7 +29,7 @@ class Users:
     def hash_password(self, password):
         return bcrypt.hashpw(password.encode("UTF-8"), bcrypt.gensalt())
 
-    # check_password method updated because the previous code was trying to match between the hashed what the user entered:
+# check_password method updated because the previous code was trying to match between the hashed what the user entered:
 
     def check_password(self, password):
         return bcrypt.checkpw(password.encode("UTF-8"), self.password)
@@ -41,22 +41,21 @@ class Users:
             return True  # the user entered a password that matches the hashed one
         return False  # the user entered a password that doesn't match the hashed one
 
-
-    def check_email(email):
+    def check_email(self, email):
         valid_email = r"\b[A-Za-z0-9._%+-] +@[A-Z|a-z]{2,}\b"
         return re.match(valid_email, email)
 
+    def filter_movies(self, movies):
+        raise NotImplementedError
+
 
 # creating an 18+ and <18 user subclass to filter what films are available to them based on their age at sign up
-def check_email(email):
-    valid_email = r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
-    return re.match(valid_email, email)
+# def check_email(email):
+#     valid_email = r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
+#     return re.match(valid_email, email)
 
 
 # telling the subclasses that this should be implemented and raise an error if not
-
-def filter_movies(self, movies):
-    raise NotImplementedError
 
 
 class Under18Users(Users):
@@ -96,6 +95,7 @@ class Over18Users(Users):
         return movies
 
         # returns all the results to adult users, no filtering applies
+
 
 def search_by_title(api, title):
     results = api.search_movies_by_title(title)  # or however the data is fetched
