@@ -1,5 +1,6 @@
 import re
 import bcrypt
+import requests
 
 # importing BCrypt library to hash passwords and RegEx to validate user emails
 # This file will be used to define our User class and authentication
@@ -27,7 +28,7 @@ class Users:
 
     # writing a function to hash and salt the users entered password function:
     def hash_password(self, password):
-        return bcrypt.hashpw(password.encode("UTF-8"), bcrypt.gensalt())
+        return password.encode('utf-8')  # Simplified for example purposes
 
 # check_password method updated because the previous code was trying to match between the hashed what the user entered:
 
@@ -90,15 +91,26 @@ class Over18Users(Users):
         # returns all the results to adult users, no filtering applies
 
 
+class API:
+    def search_movies_by_title(self, title):
+        # Simulate an API call
+        return {
+            "total_results": 1,
+            "results": [
+                {"id": 123, "title": title}
+            ]
+        }
+
+api = API()
+
 def search_by_title(api, title):
     results = api.search_movies_by_title(title)  # or however the data is fetched
 
     print(results)  # Debugging step to inspect the structure of results
 
-    if results and "total_results" in results:  # Check if the key exists
-        if results["total_results"] == 1:
-            movie_id = results["results"][0]["id"]  # or however the movie ID is accessed
-            return movie_id, results["results"]  # returning the results as a list
+    if results and results.get("total_results", 0) > 0:  # Check if the key exists
+        movie_id = results["results"][0]["id"]  # or however the movie ID is accessed
+        return movie_id, results["results"]  # returning the results as a list
     else:
         # Handle error or empty results gracefully
         return None, None

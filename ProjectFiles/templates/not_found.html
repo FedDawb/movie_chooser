@@ -1,13 +1,69 @@
-{% extends 'base.html' %}
+<!--{% extends 'base.html' %}-->
 
-{% block title %}{{ search }} - Not found{% endblock %}
+<!--{% block title %}{{ search }} - Not found{% endblock %}-->
 
-{% block page_css %}
+<!--{% block page_css %}-->
 
-{% endblock %}
+<!--{% endblock %}-->
 
-{% block content %}
+<!--{% block content %}-->
 
-<h1>{{ search }} - Not found</h1>
+<!--<h1>{{ search }} - Not found</h1>-->
 
-{% endblock %}
+<!--{% endblock %}-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh"
+          content="width=device-widthm initial-scale=1.0">
+    <title>API Call Not Found, Redirecting...</title>
+
+    <style>
+        body, h1, p {
+        margin: 0;
+        padding: 0;
+        }
+
+        body {
+        font-family: arial-bold;
+        background-color: #B1560F;
+        color: black;
+        text-align: center;
+        padding: 300px;
+        }
+
+        h1 {
+        font-size: auto;
+        color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>API Call Not Found</h1>
+
+    <p>The movie you search for can't be found.</p>
+
+<p class="loading" id="loading-message">Redirecting...</p>
+    <p>If you're not automatically redirected, <a href="http://127.0.0.1:5000/">click
+    here</a>.</p>
+    <div id="movie-results" class="movie-results"></div>
+    </div>
+
+<script>
+
+    const api_key =
+
+    // redirecting the user after a 2.5 second delay
+    const TMDB_API = "https://api.themoviedb.org/3/";
+
+        setTimeout(function() {
+    window.location.href = "http://127.0.0.1:5000/";
+    }, 2500);
+    </script>
+
+</body>
+
+</html>
