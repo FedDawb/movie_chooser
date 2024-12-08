@@ -66,10 +66,11 @@ class Under18Users(Users):
         self.kids_certifications = {"U", "PG", "12A", "15"}
 
     def filter_movies(self, movies):
-        return [
+        filtered_movies = [
             movie for movie in movies
             if movie.get("certification") in self.kids_certifications
         ]
+        return filtered_movies
     # returns the movies filtered based on <18 users attributes being satisfied
 
 # starting to create the function to filter the films shown to the user based on if the user is 18+ or <18
@@ -105,7 +106,7 @@ def search_by_title(api, title):
     if results and "total_results" in results:  # Check if the key exists
         if results["total_results"] == 1:
             movie_id = results["results"][0]["id"]  # or however the movie ID is accessed
-            return movie_id, results
+            return movie_id, results["results"]  # returning the results as a list
     else:
         # Handle error or empty results gracefully
         return None, None
