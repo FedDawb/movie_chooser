@@ -42,12 +42,18 @@ class Users:
         return False  # the user entered a password that doesn't match the hashed one
 
 
+<<<<<<< Updated upstream
     def check_email(email):
         valid_email = r"\b[A-Za-z0-9._%+-] +@[A-Z|a-z]{2,}\b"
         return re.match(valid_email, email)
 
 
 # creating an 18+ and <18 user subclass to filter what films are available to them based on their age at sign up
+=======
+def check_email(email):
+    valid_email = r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
+    return re.match(valid_email, email)
+>>>>>>> Stashed changes
 
 
 # telling the subclasses that this should be implemented and raise an error if not
@@ -93,3 +99,16 @@ class Over18Users(Users):
         return movies
 
         # returns all the results to adult users, no filtering applies
+
+def search_by_title(api, title):
+    results = api.search_movies_by_title(title)  # or however the data is fetched
+
+    print(results)  # Debugging step to inspect the structure of results
+
+    if results and "total_results" in results:  # Check if the key exists
+        if results["total_results"] == 1:
+            movie_id = results["results"][0]["id"]  # or however the movie ID is accessed
+            return movie_id, results
+    else:
+        # Handle error or empty results gracefully
+        return None, None
