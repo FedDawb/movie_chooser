@@ -139,5 +139,3 @@ class TMDB:
             return gb_certifications
         else:
             response.raise_for_status()  # raising exception if the request fails
-
-

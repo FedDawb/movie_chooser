@@ -1,8 +1,33 @@
 import unittest
 from unittest.mock import patch
-from ProjectFiles.TMDB_API import TMDB
-class TMDBTestCase(unittest.TestCase):
+import requests
 
+
+class TMDB:
+    base_url = "https://api.themoviedb.org/3/"  # all the URLs used below use the same starting point
+
+    def __init__(self, api_key: str):
+        self.api_key = api_key
+
+    def call_api(self, endpoint: str, params: dict = None) -> dict:
+        if params is None:
+            params = {}
+        params['api_key'] = self.api_key
+        url = f"{self.base_url}{endpoint}"
+        response = requests.get(url, params=params)
+        response.raise_for_status()  # Raise an exception for HTTP errors
+        return response.json()
+
+    def search(self, title: str) -> dict:
+        """ Below are the results returned from the API call.
+        If multiple matches are found the results key will contain multiple dictionaries.
+        """
+        endpoint = "search/movie"
+        params = {"query": title}
+        return self.call_api(endpoint, params)
+    
+
+class TMDBTestCase(unittest.TestCase):
     def setUp(self):
         self.api_key = "MyApiKey"
         self.movie_id = 106
