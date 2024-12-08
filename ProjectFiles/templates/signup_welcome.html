@@ -11,12 +11,17 @@
 
  <div class="container py-5 text-center bg-light">
         <h1 class="display-3"> Welcome to Movie Matcher!</h1>
-        <p> Your account has been successfully created.</p>
+        <p>Hello there, <strong>{{ username }}</strong>! Your account has been successfully created.</p>
  </div>
 
 <div class="container py-5 text-center bg-light">
         <p class="lead">Let's help you find you're next movie!</p>
-        <a href="index_2.html" class="btn btn-primary">Return to main site</a>
+        <a href="{{ url_for('home') }}" class="btn btn-primary">Return to main site</a>
+</div>
+
+<div class="container py-5 text-center bg-light">
+        <p class="lead">Log into your account here:</p>
+        <a href="{{ url_for('login') }}" class="btn btn-primary">Log in</a>
 </div>
 
 
