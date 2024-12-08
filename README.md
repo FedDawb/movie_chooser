@@ -16,7 +16,7 @@ This project aims to create a user-friendly app/website that helps users decide 
 - User accounts  
 - Keyword searching  
 - Save favourites  
-- Blocking movies/actors you don't want to see  
+- ~~Blocking movies/actors you don't want to see~~  
 - ~~Age restrictions (e.g., 18+ films)~~
 
 ---
