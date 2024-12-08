@@ -115,14 +115,14 @@ class TMDB:
         }
         result = requests.get(f"{self.base_url}{url}", headers=headers)
 
-
-    def age_certifications(self, certification):
-        url = f"{self.base_url}/certification/{certification}/movie/list"
+    def age_certifications(self, country="GB"):  # creating age certification method to return the GB array
+        url = f"{self.base_url}/certification/certification/movie/list"
         response = requests.get(url, params={"api_key": self.api_key})
 
         if response.status_code == 200:
-            certifications = response.json().get("certifications", {}).get("GB", [])
-            return certifications
+            certifications = response.json().get("certifications", {}).get(country, [])
+            gb_certifications = {cert.get("certification") for cert in certifications}
+            return gb_certifications
         else:
-            response.raise_for_status()
+            response.raise_for_status()  # raising exception if the request fails
 
