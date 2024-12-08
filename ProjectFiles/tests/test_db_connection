@@ -1,0 +1,24 @@
+import unittest
+from app import DB_CONFIG
+import mysql.connector
+from mysql.connector import Error
+
+class TestDatabaseConnection(unittest.TestCase):
+    def test_connection(self):
+        try:
+            connection = mysql.connector.connect(
+                host=DB_CONFIG['host'],
+                user=DB_CONFIG['user'],
+                password=DB_CONFIG['password'],
+                database=DB_CONFIG['database'],
+                port=DB_CONFIG['port']
+            )
+            self.assertTrue(connection.is_connected())
+        except Error as e:
+            self.fail(f"Database connection failed: {e}")
+        finally:
+            if 'connection' in locals() and connection.is_connected():
+                connection.close()
+
+if __name__ == "__main__":
+    unittest.main()
