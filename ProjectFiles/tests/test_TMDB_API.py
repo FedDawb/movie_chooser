@@ -4,12 +4,14 @@ from decouple import config
 import sys
 import os
 
-# Add the parent directory to the Python path
+# Add the parent directory to the sys.path list
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from TMDB_API import TMDB  # Ensure the correct import path
 
+# The TMDB class is used to interact with the TMDB API.
 class TMDBTestCase(unittest.TestCase):
+    # The setUp method is called before each test in this class.
     def setUp(self):
         self.api_key = config("API_KEY")
         self.movie_id = 106
@@ -26,15 +28,15 @@ class TMDBTestCase(unittest.TestCase):
             "total_results": 1
         }
 
+    # The tearDown method is called after each test in this class.
     def test__init__(self):
         """ Test for the TMDB class init method """
         self.assertEqual(self.tmdb.api_key, self.api_key)
 
+    # The patch decorator is used to mock the call_api method of the TMDB class.
     @patch("TMDB_API.TMDB.call_api")
     def test_search(self, mocked_call_api):
-        """  Test to ensure the returned value from call_api is returned by this method and call_api is invoked with
-            the expected URL
-         """
+        # The return value of the call_api method is set to the expected value.
         mocked_call_api.return_value = {
             "page": 1,
             "results": [
@@ -70,9 +72,6 @@ class TMDBTestCase(unittest.TestCase):
 
     @patch("TMDB_API.TMDB.call_api")
     def test_get_movie_details(self, mocked_call_api):
-        """  Test to ensure the returned value from call_api is returned by this method and call_api is invoked with
-            the expected URL
-         """
         mocked_call_api.return_value = self.api_result
 
         result = self.tmdb.get_movie_details(self.movie_id)
@@ -82,9 +81,6 @@ class TMDBTestCase(unittest.TestCase):
 
     @patch("TMDB_API.TMDB.call_api")
     def test_similar_movie(self, mocked_call_api):
-        """  Test to ensure the returned value from call_api is returned by this method and call_api is invoked with
-            the expected URL
-         """
         mocked_call_api.return_value = self.api_result
 
         result = self.tmdb.similar_movie(self.movie_id)
