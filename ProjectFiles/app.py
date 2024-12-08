@@ -14,8 +14,8 @@ from mysql.connector import Error
 
 
 # Print database connection info for debugging
-print(f"Connecting to database on host {DB_CONFIG['host']}, port {DB_CONFIG['port']}")
-print(f"Using user {DB_CONFIG['user']} and password {DB_CONFIG['password']}")
+# print(f"Connecting to database on host {DB_CONFIG['host']}, port {DB_CONFIG['port']}")
+# print(f"Using user {DB_CONFIG['user']} and password {DB_CONFIG['password']}")
 
 
 # Asking flask to use this file to run the request server side
