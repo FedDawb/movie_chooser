@@ -6,6 +6,12 @@ This project aims to create a user-friendly app/website that helps users decide 
 
 ---
 
+## **Activity Log Link**
+
+[Google Spreadsheet](https://docs.google.com/spreadsheets/d/1rFKN-fSPBCfbnL2ba5ftVVI_m5hxxxLb/edit?usp=sharing&ouid=115152390265221081079&rtpof=true&sd=true)
+
+---
+
 ## **Key Features**  
 - User accounts  
 - Keyword searching  
