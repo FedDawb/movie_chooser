@@ -1,7 +1,5 @@
 import re
 import bcrypt
-from ProjectFiles.endpoints import tmdb
-
 
 # importing BCrypt library to hash passwords and RegEx to validate user emails
 # This file will be used to define our User class and authentication
@@ -42,11 +40,11 @@ class Users:
         return False  # the user entered a password that doesn't match the hashed one
 
 
-def check_email(email):
-    valid_email = r"\b[A-Za-z0-9._%+-] +@[A-Z|a-z]{2,}\b"
-    return re.match(valid_email, email)
+    def check_email(email):
+        valid_email = r"\b[A-Za-z0-9._%+-] +@[A-Z|a-z]{2,}\b"
+        return re.match(valid_email, email)
 
-# creating an 18+ and <18 user subclass to filter what films are available to them based on their age at sign up
+    # creating an 18+ and <18 user subclass to filter what films are available to them based on their age at sign up
 
 
 class Over18Users(Users):
@@ -62,7 +60,6 @@ class Under18Users(Users):
         return certification != "18"  # ensures that only users who are 18 can have films rated 18 returned
 
 # age certification rewrite:
-
 
 
 

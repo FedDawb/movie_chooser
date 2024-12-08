@@ -54,6 +54,8 @@ def home():
     top_rated = api.top_rated()
     username = session.get("user")
     
+    print("Popular films response:", popular)  # Debugging line
+    
     context = {
         "popular_movies": popular["results"],
         "upcoming_movies" : upcoming["results"],
