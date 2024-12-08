@@ -61,6 +61,11 @@ class Under18Users(Users):
     def can_watch_film(self, certification):
         return certification != "18"  # ensures that only users who are 18 can have films rated 18 returned
 
+# age certification rewrite:
+
+
+
+
 # starting to create the function to filter the films shown to the user based on if the user is 18+ or <18
 # def filter_by_certification(user, movies):
 #     filter_films = []
