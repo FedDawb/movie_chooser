@@ -1,7 +1,6 @@
 import re
 import bcrypt
 
-
 # importing BCrypt library to hash passwords and RegEx to validate user emails
 # This file will be used to define our User class and authentication
 
@@ -43,9 +42,12 @@ class Users:
         return False  # the user entered a password that doesn't match the hashed one
 
 
-def check_email(email):
-    valid_email = r"\b[A-Za-z0-9._%+-] +@[A-Z|a-z]{2,}\b"
-    return re.match(valid_email, email)
+    def check_email(email):
+        valid_email = r"\b[A-Za-z0-9._%+-] +@[A-Z|a-z]{2,}\b"
+        return re.match(valid_email, email)
+
+
+# creating an 18+ and <18 user subclass to filter what films are available to them based on their age at sign up
 
 
 # telling the subclasses that this should be implemented and raise an error if not
@@ -67,6 +69,18 @@ class Under18Users(Users):
             if movie.get("certification") in self.kids_certifications
         ]
     # returns the movies filtered based on <18 users attributes being satisfied
+
+# starting to create the function to filter the films shown to the user based on if the user is 18+ or <18
+# def filter_by_certification(user, movies):
+#     filter_films = []
+#     for film in films:
+#         certification = film.get("certification")
+#         if user.can_watch_film(certification):
+#             filtered_films.
+
+# def __str__(self, password, hashpw):
+#     print("We take our users privacy very seriously!")
+#     return
 
 
 class Over18Users(Users):
