@@ -4,6 +4,10 @@
 This project aims to create a user-friendly app/website that helps users decide what to watch by providing tailored movie and TV show suggestions. The app leverages an external entertainment API to deliver personalized recommendations based on preferences such as genre, actors, directors, or release year.  
 
 ---
+![Homepage](movie_chooser/Screenshot-2025-07-27-113847.png)
+
+
+
 
 ## **Activity Log Link**
 
