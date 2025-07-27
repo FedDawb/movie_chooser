@@ -3,15 +3,37 @@
 
 This project aims to create a user-friendly app/website that helps users decide what to watch by providing tailored movie and TV show suggestions. The app leverages an external entertainment API to deliver personalized recommendations based on preferences such as genre, actors, directors, or release year.  
 
+Below are some screenshots showcasing the project’s aesthetics, UI, and UX, followed by technical details and instructions on how to run the app.
+
 ---
-![Homepage](movie_chooser/Screenshot-2025-07-27-113847.png)
+
+## Screenshots
+
+### Main Home Page / Search Page  
+![Homepage](https://github.com/FedDawb/movie_chooser/blob/main/Screenshot%202025-07-27%20113847.png?raw=true)
+
+### Search by Actor Option  
+![Search Actor](https://github.com/FedDawb/movie_chooser/blob/main/Screenshot%202025-07-27%20114025.png?raw=true)
+
+### Movie Details & Where to Watch Options  
+![Where to Watch](https://github.com/FedDawb/movie_chooser/blob/2563270061c18db4faad92ab17ceb4fadd00b938/Screenshot%202025-07-27%20115836.png?raw=true)
+
+### Actor Information Page  
+![Actor Info](https://github.com/FedDawb/movie_chooser/blob/2563270061c18db4faad92ab17ceb4fadd00b938/Screenshot%202025-07-27%20114116.png?raw=true)
+
+---
 
 
 
 
-## **Activity Log Link**
+
+## **Activity Log Link for work during the project**
 
 [Google Spreadsheet](https://docs.google.com/spreadsheets/d/1rFKN-fSPBCfbnL2ba5ftVVI_m5hxxxLb/edit?usp=sharing&ouid=115152390265221081079&rtpof=true&sd=true)
+
+---
+
+## Technical Details & How to Run
 
 ---
 
