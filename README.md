@@ -73,3 +73,29 @@ Open your web browser and navigate to:
 ```bash
 http://127.0.0.1:5000
 ```
+## Revisiting the Project: Addressing Access Difficulties
+After a period of inactivity, you might encounter issues when trying to access or run the project again. This could be due to changes in your environment, outdated dependencies, or other factors. This section outlines a common problem we faced when revisiting the project after several months and the steps we took to resolve it, which might be helpful if you experience similar difficulties.
+
+Specific Steps to Resolve Access Issues After Inactivity:
+
+Re-activate virtual environment:
+
+### Bash
+source venv/bin/activate 
+or 
+venv\Scripts\activate on Windows
+Re-install/Update dependencies:
+
+### Bash
+pip install -r requirements.txt
+Check database status:
+
+(e.g., ensure your database server is running, or re-run migrations if needed.)
+
+Verify environment variables:
+
+(e.g., ensure your .env file is still correctly configured and accessible. With .env file is set up correctly using 'API Read Access Token' )
+
+Clean Flask cache/sessions (if applicable):
+
+(e.g., rm -rf instance/ if using Flask's instance folder for config/data.)

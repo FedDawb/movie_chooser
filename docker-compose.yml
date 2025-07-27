@@ -1,0 +1,51 @@
+# This file defines the services that make up your application.
+# We have two services: 'db' for the MySQL database and 'web' for your Flask app.
+
+version: '3.8'
+
+services:
+  db:
+    # Use the official MySQL 8.0 image from Docker Hub.
+    image: mysql:8.0
+    # This ensures the container restarts if it crashes.
+    restart: always
+    # These are the environment variables for the database itself.
+    # It sets the root password and creates your database.
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: movie_chooser_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      # This maps port 3307 on your computer to port 3306 in the container.
+      # We use 3307 to avoid conflicts if you ever install MySQL locally.
+      - "3307:3306"
+    volumes:
+      # This saves the database data to a 'mysql-data' folder on your machine,
+      # so your data persists even if you stop the container.
+      - mysql-data:/var/lib/mysql
+
+  web:
+    # This tells Docker Compose to build the image for your Flask app.
+    # The '.' means it will look for the Dockerfile in the current directory.
+    build: .
+    # This command will run once the container starts.
+    # It starts your Flask application.
+    command: flask --app app run --host=0.0.0.0
+    volumes:
+      # This syncs your local code with the code inside the container,
+      # so changes you make are reflected instantly.
+      - .:/app
+    ports:
+      # Map port 5000 on your computer to port 5000 in the container.
+      - "5000:5000"
+    # This tells your Flask app to use the '.env' file for configuration.
+    env_file:
+      - .env
+    # This makes sure the 'db' service starts before your 'web' service.
+    depends_on:
+      - db
+
+# This defines the volume we created earlier to persist database data.
+volumes:
+  mysql-data:

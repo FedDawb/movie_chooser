@@ -1,3 +1,16 @@
+import sys
+import os
+
+# --- Add the project root to the Python path ---
+# This is a robust way to ensure that all modules like TMDB_API.py are found,
+# regardless of how the script is run.
+project_root = os.path.dirname(os.path.abspath(__file__))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+# ---------------------------------------------
+
+print("--- Attempting to load app.py ---")
+
 #  This file will house Flask API code, manage routing and integrate with front-end
 
 import math
@@ -13,32 +26,10 @@ import mysql.connector
 from mysql.connector import Error
 
 
-# Print database connection info for debugging
-# print(f"Connecting to database on host {DB_CONFIG['host']}, port {DB_CONFIG['port']}")
-# print(f"Using user {DB_CONFIG['user']} and password {DB_CONFIG['password']}")
-
-
 # Asking flask to use this file to run the request server side
 app = Flask(__name__)
 
 app.secret_key = 'my_secret'
-# app.config['SESSION_PERMANENT'] = False # Delete cookie when browser closes
-
-'''app routing:
-The ROOT ADDRESS for our application is "/" our first function "home()" will manage the logic for the landing page
-using the app route decorator "app.route" binds the function and its logic to this root url
-running on port address http://127.0.0.1:5000/'''
-
-# Hashed out as revealing database connection info is a security risk
-'''@app.route('/debug') # Debugging route - testing database connection
-def debug():
-    return {
-        "host": DB_CONFIG['host'],
-        "user": DB_CONFIG['user'],
-        "password": DB_CONFIG['password'],
-        "database": DB_CONFIG['database'],
-        "port": DB_CONFIG['port']
-    }'''
 
 @app.route("/")
 def home():
@@ -50,23 +41,18 @@ def home():
     top_rated = api.top_rated()
     username = session.get("user")
     
-    # print("Popular films response:", popular)  # Debugging line
-    
-    # Check if popular is not None
     if popular is None:
-        popular_results = []  # Set to an empty list if no results
+        popular_results = []
     else:
-        popular_results = popular.get("results", [])  # Safely get results
+        popular_results = popular.get("results", [])
 
-    # Check if upcoming is not None
     if upcoming is None:
-        upcoming_results = []  # Set to an empty list if no results
+        upcoming_results = []
     else:
         upcoming_results = upcoming.get("results", [])
 
-    # Check if top_rated is not None
     if top_rated is None:
-        top_rated_results = []  # Set to an empty list if no results
+        top_rated_results = []
     else:
         top_rated_results = top_rated.get("results", [])
 
@@ -108,17 +94,6 @@ def create_user():
     db_utils.add_user(username, username, password, 20)
     return render_template("signup_welcome.html", username=username)
 
-
-"""
-    def age_certifications(self, certification):
-        url = f"{certification}/movie/list"
-        response = requests.get(url)
-        certifications = response.json()["certifications"]["GB"]  # should return the certifications from the GB array
-        return self.call_api(url)
-
-
-"""
-
 @app.route("/logout")
 def logout():
     context = {}
@@ -143,10 +118,6 @@ def sign_in():
 
 @app.route("/toggle-favourites", methods=["POST"])
 def toggle_favourites():
-    """
-    When you click on "add to favourites" Check if the movie is in the favourite list
-    if not already in DB add as a favourite, if unhighlighting the "add to favourite" remove from DB
-    """
     data = {
         "is_favourite" : False
     }
@@ -180,23 +151,18 @@ def saved_films():
 
 @app.route("/results", methods=["POST"])
 def results():
-    """Performs the search and shows the results"""
-    # instantiating the TMDB class from TMDB_API.py which performs the search on the movie title from the data entered in the form
     api_key = config("API_KEY")
     api = TMDB(api_key)
 
     if request.form.get("search"):
-        # Main search page after searching by title
         title = request.form.get("search")
         movie_id, results = search_by_title(api, title)
     else:
-        # Searching on movie
         movie_id = request.form.get("movie_id")
         title = ""
         results = api.get_movie_details(movie_id)
 
     if movie_id:
-        # 1 result fetch additional data
         context = {
             "movie_id": movie_id,
             "result": results["results"][0] if results.get("results") else results,
@@ -247,10 +213,6 @@ def actor(person_id):
     }
     return render_template("actor.html", **context)
 
-# telling the script to run if running this file and using the debugger to ensure it runs correctly and if not it will
-# tell us immediately
-
-# Route to test database connection
 @app.route('/testdb')
 def test_db():
     try:
@@ -261,6 +223,7 @@ def test_db():
             database=DB_CONFIG['database'],
             port=DB_CONFIG['port']
         )
+        # This is the corrected line with only one dot
         if connection.is_connected():
             db_info = connection.get_server_info()
             return f"Successfully connected to the database. MySQL server version: {db_info}"
@@ -270,6 +233,5 @@ def test_db():
         if 'connection' in locals() and connection.is_connected():
             connection.close()
 
-# Run the app
 if __name__ == "__main__":
     app.run(debug=True)
