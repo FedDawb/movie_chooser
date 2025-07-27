@@ -33,8 +33,8 @@ This project aims to create a user-friendly app/website that helps users decide 
 
 ### **1. Clone the Repository**  
 ```bash
-git clone https://github.com/emilyphillips02/CFG-GroupProject-Team2.git
-cd CFG-GroupProject-Team2
+git clone https://github.com/FedDawb/movie_chooser.git
+cd CFG-group-project-MovieChooser
 ```
 
 ### **2. Set-up the Environment**  
@@ -76,26 +76,54 @@ http://127.0.0.1:5000
 ## Revisiting the Project: Addressing Access Difficulties
 After a period of inactivity, you might encounter issues when trying to access or run the project again. This could be due to changes in your environment, outdated dependencies, or other factors. This section outlines a common problem we faced when revisiting the project after several months and the steps we took to resolve it, which might be helpful if you experience similar difficulties.
 
-Specific Steps to Resolve Access Issues After Inactivity:
+# Troubleshooting
+Virtual Environment Activation Issues
+If .\venv\Scripts\activate is not recognized, try Activate.ps1 in PowerShell or activate.bat in Command Prompt.
 
-Re-activate virtual environment:
+If you see an execution policy error in PowerShell, run:
 
-### Bash
-source venv/bin/activate 
-or 
-venv\Scripts\activate on Windows
-Re-install/Update dependencies:
+powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+Then try activating again.
 
-### Bash
+Empty or Missing requirements.txt
+If requirements.txt is empty, regenerate it by running:
+
+bash
+pip freeze > requirements.txt
+after installing required packages.
+
+Preventing .env from Being Pushed
+Ensure .env is listed in .gitignore.
+
+If .env was committed, remove it with:
+
+bash
+git rm --cached .env
+git commit -m "Remove .env file"
+git push
+
+## Common Flask Run Errors
+Make sure environment variables are correctly set (FLASK_APP, .env contents).
+
+Ensure all dependencies are installed.
+
+Verify your database is running and accessible if your app connects to one.
+
+## If You Encounter Module or Import Errors
+Double-check that you are running inside the activated virtual environment.
+Reinstall dependencies:
+
+bash
 pip install -r requirements.txt
-Check database status:
 
-(e.g., ensure your database server is running, or re-run migrations if needed.)
+## After Periods of Inactivity
+Reactivate the virtual environment.
 
-Verify environment variables:
+Run pip install -r requirements.txt again to refresh packages if needed.
 
-(e.g., ensure your .env file is still correctly configured and accessible. With .env file is set up correctly using 'API Read Access Token' )
+Check .env is still configured properly.
 
-Clean Flask cache/sessions (if applicable):
 
-(e.g., rm -rf instance/ if using Flask's instance folder for config/data.)
+## Future improvements
+Working on a site to host the project
