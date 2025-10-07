@@ -153,3 +153,5 @@ Check .env is still configured properly.
 
 ## Future improvements
 Working on a site to host the project
+
+This has now be completed and is hosted on Render - https://movie-chooser-hl45.onrender.com/
